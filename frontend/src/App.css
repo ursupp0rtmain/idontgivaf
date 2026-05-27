@@ -1,0 +1,274 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg:     #080808;
+  --text:   #5a5a5a;
+  --mid:    #888;
+  --bright: #d0d0d0;
+  --dim:    #242424;
+  --line:   #131313;
+  --red:    #cc2200;
+}
+
+html { scroll-behavior: auto; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Courier New', Courier, monospace;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ── HERO ── */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem;
+  position: relative;
+}
+
+.site-id {
+  font-size: 0.65rem;
+  color: var(--dim);
+  letter-spacing: 0.5em;
+  text-transform: uppercase;
+  margin-bottom: 3.5rem;
+}
+
+/* ── LIVE BADGE ── */
+.live-badge {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  font-size: 0.58rem;
+  color: var(--dim);
+  letter-spacing: 0.18em;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.live-dot {
+  flex-shrink: 0;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--dim);
+  animation: pulse-dot 2.5s ease-in-out infinite;
+}
+
+.live-dot.active { background: #3a8a3a; }
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50%       { opacity: 1;   transform: scale(1.4); }
+}
+
+/* ── COUNTER ── */
+.counter-label {
+  font-size: 0.6rem;
+  color: var(--dim);
+  letter-spacing: 0.7em;
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+}
+
+.counter {
+  font-size: clamp(7rem, 30vw, 22rem);
+  font-weight: 700;
+  color: var(--bright);
+  line-height: 0.85;
+  font-variant-numeric: tabular-nums;
+  user-select: none;
+  transition: color 0.15s, text-shadow 0.15s;
+}
+
+.counter.lit {
+  color: var(--red);
+  text-shadow: 0 0 80px rgba(204, 34, 0, 0.35);
+}
+
+.counter.shake { animation: shake 0.45s ease; }
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%       { transform: translateX(-8px) rotate(-0.5deg); }
+  40%       { transform: translateX(8px)  rotate( 0.5deg); }
+  60%       { transform: translateX(-5px) rotate(-0.3deg); }
+  80%       { transform: translateX(5px)  rotate( 0.3deg); }
+}
+
+.status {
+  margin-top: 1.75rem;
+  font-size: 0.75rem;
+  color: var(--dim);
+  letter-spacing: 0.2em;
+  height: 1.1rem;
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+
+.status.show { opacity: 1; }
+
+/* ── GLOBAL STATS ── */
+.global-stats {
+  margin-top: 3.5rem;
+  font-size: 0.62rem;
+  color: var(--dim);
+  letter-spacing: 0.14em;
+  display: flex;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  line-height: 1.8;
+}
+
+.stat-value {
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+}
+
+.scroll-hint {
+  position: absolute;
+  bottom: 2.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.58rem;
+  color: var(--dim);
+  letter-spacing: 0.35em;
+  white-space: nowrap;
+  animation: breathe 5s ease-in-out infinite;
+}
+
+@keyframes breathe {
+  0%, 100% { opacity: 0.15; }
+  50%       { opacity: 0.45; }
+}
+
+/* ── FLEE BUTTON ── */
+.flee-btn {
+  position: fixed;
+  background: transparent;
+  border: 1px solid var(--dim);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 0.7rem;
+  letter-spacing: 0.25em;
+  padding: 0.7rem 1.5rem;
+  cursor: pointer;
+  z-index: 99;
+  user-select: none;
+  transition: border-color 0.15s, color 0.15s;
+}
+
+.flee-btn:hover  { border-color: var(--text); }
+
+.flee-btn:focus-visible {
+  outline: 1px solid var(--red);
+  outline-offset: 5px;
+  border-color: var(--red);
+  color: var(--mid);
+}
+
+/* ── VOID SCROLL ── */
+.void {
+  max-width: 540px;
+  margin: 0 auto;
+  padding: 0 2rem 8rem;
+}
+
+.void-line {
+  padding: 1.25rem 0;
+  border-top: 1px solid var(--line);
+  font-size: 0.72rem;
+  color: var(--dim);
+  letter-spacing: 0.1em;
+  opacity: 0;
+  transform: translateY(8px);
+  animation: rise 0.55s forwards;
+}
+
+@keyframes rise {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ── SIGH OVERLAY ── */
+.sigh-overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 200;
+}
+
+.sigh-msg {
+  font-size: clamp(1rem, 3.5vw, 1.8rem);
+  color: var(--mid);
+  letter-spacing: 0.06em;
+  text-align: center;
+  padding: 1rem 2rem;
+  max-width: 620px;
+  opacity: 0;
+  transform: scale(0.94);
+  transition: opacity 0.3s, transform 0.3s;
+}
+
+.sigh-msg.show {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* ── ACHIEVEMENTS ── */
+.achievement-stack {
+  position: fixed;
+  bottom: 2rem;
+  left: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  z-index: 300;
+  pointer-events: none;
+}
+
+.achievement {
+  background: #0f0f0f;
+  border: 1px solid var(--dim);
+  padding: 0.6rem 1rem;
+  font-size: 0.62rem;
+  color: var(--text);
+  letter-spacing: 0.1em;
+  opacity: 0;
+  transform: translateX(-16px);
+  animation: slide-in 0.4s forwards, fade-out 0.5s 4.5s forwards;
+}
+
+.achievement-title {
+  color: var(--mid);
+  margin-bottom: 0.25rem;
+}
+
+@keyframes slide-in {
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes fade-out {
+  to { opacity: 0; transform: translateX(-8px); }
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 480px) {
+  .live-badge { font-size: 0.5rem; right: 1rem; top: 1rem; }
+  .global-stats { gap: 0.75rem; font-size: 0.58rem; }
+  .achievement-stack { left: 1rem; bottom: 1rem; }
+}
