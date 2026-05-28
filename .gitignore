@@ -8,5 +8,5 @@ obj/
 # Node
 frontend/node_modules/
 
-# Vite dev
-frontend/dist/
+# Vite build output (run `npm run build` in frontend/ before deploying)
+backend/wwwroot/

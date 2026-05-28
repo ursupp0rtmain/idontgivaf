@@ -46,6 +46,8 @@ export function StatsProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     fetchStats().then(setStats).catch(() => {})
 
+    let pollId: ReturnType<typeof setInterval> | undefined
+
     const hub = new signalR.HubConnectionBuilder()
       .withUrl('/hub/nothing')
       .withAutomaticReconnect()
@@ -60,12 +62,14 @@ export function StatsProvider({ children }: { children: ReactNode }) {
     })
 
     hub.start().catch(() => {
-      const id = setInterval(() => fetchStats().then(setStats).catch(() => {}), 15_000)
-      return () => clearInterval(id)
+      pollId = setInterval(() => fetchStats().then(setStats).catch(() => {}), 15_000)
     })
 
     hubRef.current = hub
-    return () => { hub.stop() }
+    return () => {
+      clearInterval(pollId)
+      hub.stop()
+    }
   }, [])
 
   const onSessionAttempt = useCallback(() => {

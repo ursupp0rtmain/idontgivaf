@@ -159,17 +159,23 @@ function CodeBlock({ snippets }: { snippets: Snippet[] }) {
 
 function EndpointCard({ ep }: { ep: Endpoint }) {
   const [open, setOpen] = useState(true)
+  const panelId = `${ep.anchor}-panel`
 
   return (
     <div className="endpoint-card" id={ep.anchor}>
-      <button className="endpoint-header" onClick={() => setOpen(o => !o)}>
+      <button
+        className="endpoint-header"
+        onClick={() => setOpen(o => !o)}
+        aria-expanded={open}
+        aria-controls={panelId}
+      >
         <MethodBadge method={ep.method} />
         <code className="endpoint-path">{ep.path}</code>
         <span className="endpoint-toggle">{open ? '−' : '+'}</span>
       </button>
 
       {open && (
-        <div className="endpoint-body">
+        <div className="endpoint-body" id={panelId} role="region">
           <p className="endpoint-desc">{ep.description}</p>
 
           <div className="endpoint-response-wrap">

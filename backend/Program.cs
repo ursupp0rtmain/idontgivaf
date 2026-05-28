@@ -148,7 +148,10 @@ public class StatsDb
             cmd.CommandText = "ALTER TABLE stats ADD COLUMN api_calls INTEGER NOT NULL DEFAULT 0";
             cmd.ExecuteNonQuery();
         }
-        catch { /* column already exists in existing DBs */ }
+        catch (SqliteException ex) when (ex.Message.Contains("duplicate column name"))
+        {
+            // expected on DBs already migrated
+        }
     }
 
     public void IncrementAttempts() => Exec("UPDATE stats SET attempts  = attempts  + 1 WHERE id = 1");
