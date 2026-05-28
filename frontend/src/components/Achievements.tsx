@@ -8,14 +8,14 @@ interface Achievement {
 }
 
 const MILESTONES: { attempts: number; ach: Achievement }[] = [
-  { attempts: 1,  ach: { id: 'curious',    label: 'Neugierig',    desc: 'Du hast es versucht.' } },
-  { attempts: 5,  ach: { id: 'persistent', label: 'Hartnäckig',   desc: '5 Versuche. Respekt. Wirklich.' } },
-  { attempts: 20, ach: { id: 'hopeless',   label: 'Hoffnungslos', desc: '20 Versuche. Bitte hol dir Hilfe.' } },
-  { attempts: 50, ach: { id: 'legend',     label: 'Legende',      desc: '50 Versuche. Du bist das Nichts.' } },
+  { attempts: 1,  ach: { id: 'curious',    label: 'Curious',    desc: 'You tried.' } },
+  { attempts: 5,  ach: { id: 'persistent', label: 'Persistent', desc: '5 attempts. Respect. Sort of.' } },
+  { attempts: 20, ach: { id: 'hopeless',   label: 'Hopeless',   desc: '20 attempts. Please seek help.' } },
+  { attempts: 50, ach: { id: 'legend',     label: 'Legend',     desc: '50 attempts. You are the void now.' } },
 ]
 
 const CLICK_ACH: Achievement = {
-  id: 'winner', label: 'Gewinner', desc: 'Du hast den Knopf geklickt. Wofür.',
+  id: 'winner', label: 'Winner', desc: 'You clicked the button. For what.',
 }
 
 export default function Achievements() {

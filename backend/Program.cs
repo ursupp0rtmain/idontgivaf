@@ -20,31 +20,31 @@ app.Services.GetRequiredService<StatsDb>().Init();
 
 string[] countries =
 [
-    "Deutschland", "Österreich", "Schweiz", "Frankreich", "USA",
-    "Japan", "Australien", "Kanada", "Spanien", "Italien",
-    "Brasilien", "Mexiko", "Niederlande", "Polen", "Schweden",
-    "Norwegen", "Dänemark", "Finnland", "Portugal", "Griechenland",
-    "Indien", "China", "Südkorea", "Argentinien", "Neuseeland",
-    "Belgien", "Tschechien", "Ungarn", "Rumänien", "Irland",
-    "dem Void", "der Cloud", "einer Parallelwelt", "dem Nirgendwo",
+    "Germany", "Austria", "Switzerland", "France", "the USA",
+    "Japan", "Australia", "Canada", "Spain", "Italy",
+    "Brazil", "Mexico", "the Netherlands", "Poland", "Sweden",
+    "Norway", "Denmark", "Finland", "Portugal", "Greece",
+    "India", "China", "South Korea", "Argentina", "New Zealand",
+    "Belgium", "Czechia", "Hungary", "Romania", "Ireland",
+    "the void", "the cloud", "a parallel universe", "nowhere",
 ];
 
 string[] rejections =
 [
-    "hat versucht sich zu kümmern. Abgelehnt.",
-    "wollte einen F*ck geben. System verweigert.",
-    "hat F*ck.exe gestartet. Prozess sofort beendet.",
-    "versuchte Engagement zu simulieren. 406 Not Acceptable.",
-    "hat einen F*ck gesendet. Rückgabe: null.",
+    "tried to care. Rejected.",
+    "wanted to give a f*ck. System refused.",
+    "launched F*ck.exe. Process terminated immediately.",
+    "attempted to simulate engagement. 406 Not Acceptable.",
+    "submitted a f*ck. Return value: null.",
     "tried to give a damn. Too apathetic to process.",
-    "hat Mitgefühl initialisiert. SegFault in Zeile 1.",
-    "führte caring.js aus. Uncaught TypeError: undefined.",
-    "hat CARING_LEVEL auf 1 gesetzt. Wert auf 0 korrigiert.",
-    "versuchte Empathie zu kompilieren. Build fehlgeschlagen.",
+    "initialized compassion. SegFault on line 1.",
+    "ran caring.js. Uncaught TypeError: undefined.",
+    "set CARING_LEVEL to 1. Value corrected to 0.",
+    "tried to compile empathy. Build failed.",
 ];
 
 string MakeRejection(string country) =>
-    $"User aus {country} {rejections[Random.Shared.Next(rejections.Length)]}";
+    $"User from {country} {rejections[Random.Shared.Next(rejections.Length)]}";
 
 // ── MAIN ENDPOINTS ────────────────────────────────────────────────────────
 
@@ -84,7 +84,7 @@ app.MapGet("/api/fucks/current", async (IHubContext<NothingHub> hub, StatsDb db,
     await hub.Clients.All.SendAsync("StatsUpdated",
         new { s.attempts, s.clicks, visitors = vt.Count, s.apiCalls });
     await hub.Clients.All.SendAsync("RejectionFeed",
-        new { msg = "Developer rief GET /api/fucks/current auf. Teapot antwortet: 418.", tag = "api" });
+        new { msg = "Developer called GET /api/fucks/current. Teapot replies: 418.", tag = "api" });
     return Results.Json(
         new
         {
@@ -102,7 +102,7 @@ app.MapPost("/api/fucks/give", async (IHubContext<NothingHub> hub, StatsDb db, V
     await hub.Clients.All.SendAsync("StatsUpdated",
         new { s.attempts, s.clicks, visitors = vt.Count, s.apiCalls });
     await hub.Clients.All.SendAsync("RejectionFeed",
-        new { msg = "Developer hat POST /api/fucks/give versucht. Payload vollständig ignoriert.", tag = "api" });
+        new { msg = "Developer tried POST /api/fucks/give. Payload thoroughly ignored.", tag = "api" });
     return Results.Json(
         new
         {

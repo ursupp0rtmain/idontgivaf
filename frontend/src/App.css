@@ -6,12 +6,12 @@
 
 :root {
   --bg:     #080808;
-  --text:   #5a5a5a;
-  --mid:    #888;
-  --bright: #d0d0d0;
-  --dim:    #242424;
-  --line:   #131313;
-  --red:    #cc2200;
+  --text:   #a6a6a6;
+  --mid:    #cfcfcf;
+  --bright: #f0f0f0;
+  --dim:    #6f6f6f;
+  --line:   #242424;
+  --red:    #ff4a2d;
   --violet: #7c3aed;
   --indigo: #4f46e5;
 }
@@ -21,9 +21,12 @@ html { scroll-behavior: auto; }
 body {
   background: var(--bg);
   color: var(--text);
-  font-family: 'Courier New', Courier, monospace;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', 'Courier New', monospace;
+  line-height: 1.5;
   min-height: 100vh;
   overflow-x: hidden;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
 }
 
 /* ── HERO ─────────────────────────────────────────────────────────────────── */
@@ -40,9 +43,9 @@ body {
 }
 
 .site-id {
-  font-size: 0.65rem;
+  font-size: 0.72rem;
   color: var(--dim);
-  letter-spacing: 0.5em;
+  letter-spacing: 0.32em;
   text-transform: uppercase;
   margin-bottom: 3.5rem;
 }
@@ -53,9 +56,9 @@ body {
   position: absolute;
   top: 2rem;
   right: 2rem;
-  font-size: 0.58rem;
+  font-size: 0.68rem;
   color: var(--dim);
-  letter-spacing: 0.18em;
+  letter-spacing: 0.08em;
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -80,9 +83,9 @@ body {
 /* ── COUNTER ──────────────────────────────────────────────────────────────── */
 
 .counter-label {
-  font-size: 0.6rem;
+  font-size: 0.72rem;
   color: var(--dim);
-  letter-spacing: 0.7em;
+  letter-spacing: 0.36em;
   text-transform: uppercase;
   margin-bottom: 0.75rem;
 }
@@ -114,10 +117,10 @@ body {
 
 .status {
   margin-top: 1.75rem;
-  font-size: 0.75rem;
+  font-size: 0.9rem;
   color: var(--dim);
-  letter-spacing: 0.2em;
-  height: 1.1rem;
+  letter-spacing: 0.08em;
+  min-height: 1.35rem;
   opacity: 0;
   transition: opacity 0.4s;
 }
@@ -128,14 +131,15 @@ body {
 
 .global-stats {
   margin-top: 3.5rem;
-  font-size: 0.62rem;
+  font-size: 0.74rem;
   color: var(--dim);
-  letter-spacing: 0.14em;
+  letter-spacing: 0.06em;
   display: flex;
   gap: 1.25rem;
   flex-wrap: wrap;
   justify-content: center;
   line-height: 1.8;
+  max-width: 760px;
 }
 
 .stat-value {
@@ -148,9 +152,9 @@ body {
   bottom: 2.5rem;
   left: 50%;
   transform: translateX(-50%);
-  font-size: 0.58rem;
+  font-size: 0.68rem;
   color: var(--dim);
-  letter-spacing: 0.35em;
+  letter-spacing: 0.12em;
   white-space: nowrap;
   animation: breathe 5s ease-in-out infinite;
 }
@@ -168,8 +172,8 @@ body {
   border: 1px solid var(--dim);
   color: var(--text);
   font-family: inherit;
-  font-size: 0.7rem;
-  letter-spacing: 0.25em;
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
   padding: 0.7rem 1.5rem;
   cursor: pointer;
   z-index: 99;
@@ -189,7 +193,7 @@ body {
 /* ── VOID SCROLL ──────────────────────────────────────────────────────────── */
 
 .void {
-  max-width: 540px;
+  max-width: 680px;
   margin: 0 auto;
   padding: 0 2rem 8rem;
 }
@@ -197,9 +201,10 @@ body {
 .void-line {
   padding: 1.25rem 0;
   border-top: 1px solid var(--line);
-  font-size: 0.72rem;
-  color: var(--dim);
-  letter-spacing: 0.1em;
+  font-size: 0.86rem;
+  color: var(--text);
+  letter-spacing: 0.03em;
+  line-height: 1.8;
   opacity: 0;
   transform: translateY(8px);
   animation: rise 0.55s forwards;
@@ -255,9 +260,9 @@ body {
   background: #0f0f0f;
   border: 1px solid var(--dim);
   padding: 0.6rem 1rem;
-  font-size: 0.62rem;
+  font-size: 0.72rem;
   color: var(--text);
-  letter-spacing: 0.1em;
+  letter-spacing: 0.04em;
   opacity: 0;
   transform: translateX(-16px);
   animation: slide-in 0.4s forwards, fade-out 0.5s 4.5s forwards;
@@ -283,7 +288,7 @@ body {
   right: 0;
   top: 0;
   bottom: 0;
-  width: 280px;
+  width: 320px;
   background: #040404;
   border-left: 1px solid var(--line);
   display: flex;
@@ -293,9 +298,9 @@ body {
 }
 
 .feed-header {
-  font-size: 0.52rem;
-  color: #1e1e1e;
-  letter-spacing: 0.2em;
+  font-size: 0.64rem;
+  color: #777;
+  letter-spacing: 0.08em;
   padding: 0.75rem 1rem;
   border-bottom: 1px solid var(--line);
   flex-shrink: 0;
@@ -315,9 +320,9 @@ body {
 
 .feed-empty {
   padding: 1rem;
-  font-size: 0.52rem;
-  color: #1a1a1a;
-  letter-spacing: 0.1em;
+  font-size: 0.66rem;
+  color: #747474;
+  letter-spacing: 0.04em;
   font-style: italic;
 }
 
@@ -334,36 +339,36 @@ body {
 
 .feed-time {
   display: block;
-  font-size: 0.48rem;
-  color: #1c1c1c;
+  font-size: 0.6rem;
+  color: #6f6f6f;
   letter-spacing: 0.08em;
   margin-bottom: 0.18rem;
   font-variant-numeric: tabular-nums;
 }
 
 .feed-msg {
-  font-size: 0.55rem;
-  color: #383838;
-  letter-spacing: 0.04em;
-  line-height: 1.45;
+  font-size: 0.68rem;
+  color: #9a9a9a;
+  letter-spacing: 0.02em;
+  line-height: 1.6;
   display: block;
 }
 
-.feed-item--api .feed-time { color: #2a2a3e; }
-.feed-item--api .feed-msg  { color: #3a3a5c; }
+.feed-item--api .feed-time { color: #7474a4; }
+.feed-item--api .feed-msg  { color: #a1a1d8; }
 
 /* ── API DOCS LINK ────────────────────────────────────────────────────────── */
 
 .api-docs-link {
   position: fixed;
   bottom: 1.5rem;
-  right: 296px;
+  right: 336px;
   background: transparent;
   border: 1px solid var(--dim);
   color: var(--text);
   font-family: inherit;
-  font-size: 0.58rem;
-  letter-spacing: 0.2em;
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
   padding: 0.45rem 0.9rem;
   cursor: pointer;
   z-index: 60;
@@ -401,8 +406,8 @@ body {
   border: 1px solid var(--line);
   color: var(--dim);
   font-family: inherit;
-  font-size: 0.58rem;
-  letter-spacing: 0.15em;
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
   padding: 0.35rem 0.75rem;
   cursor: pointer;
   white-space: nowrap;
@@ -425,7 +430,7 @@ body {
 }
 
 .portal-brand-tag {
-  font-size: 0.55rem;
+  font-size: 0.66rem;
   color: var(--text);
   letter-spacing: 0.2em;
   text-transform: uppercase;
@@ -440,7 +445,7 @@ body {
 }
 
 .baseurl-label {
-  font-size: 0.48rem;
+  font-size: 0.58rem;
   color: var(--dim);
   letter-spacing: 0.2em;
   text-transform: uppercase;
@@ -448,7 +453,7 @@ body {
 
 .baseurl-code {
   font-family: inherit;
-  font-size: 0.6rem;
+  font-size: 0.72rem;
   color: var(--text);
   letter-spacing: 0.05em;
 }
@@ -477,7 +482,7 @@ body {
 }
 
 .nav-section-label {
-  font-size: 0.48rem;
+  font-size: 0.58rem;
   color: var(--dim);
   letter-spacing: 0.3em;
   text-transform: uppercase;
@@ -486,7 +491,7 @@ body {
 
 .nav-link {
   display: block;
-  font-size: 0.58rem;
+  font-size: 0.68rem;
   color: var(--text);
   letter-spacing: 0.08em;
   text-decoration: none;
@@ -506,7 +511,7 @@ body {
 .portal-main {
   flex: 1;
   padding: 2rem 3rem;
-  max-width: 860px;
+  max-width: 940px;
   overflow-y: auto;
 }
 
@@ -522,7 +527,7 @@ body {
 }
 
 .portal-section-title {
-  font-size: 0.9rem;
+  font-size: 1rem;
   font-weight: 700;
   color: var(--bright);
   letter-spacing: 0.05em;
@@ -532,7 +537,7 @@ body {
 .portal-section-header .portal-section-title { margin-bottom: 0; }
 
 .portal-version {
-  font-size: 0.52rem;
+  font-size: 0.62rem;
   color: var(--dim);
   letter-spacing: 0.15em;
   border: 1px solid var(--line);
@@ -540,16 +545,16 @@ body {
 }
 
 .portal-text {
-  font-size: 0.68rem;
+  font-size: 0.82rem;
   color: var(--text);
-  letter-spacing: 0.05em;
+  letter-spacing: 0.02em;
   line-height: 1.8;
   margin-bottom: 0.9rem;
 }
 
 .portal-callout {
-  font-size: 0.63rem;
-  letter-spacing: 0.06em;
+  font-size: 0.76rem;
+  letter-spacing: 0.02em;
   line-height: 1.7;
   padding: 0.75rem 1rem;
   border-left: 2px solid;
@@ -579,9 +584,9 @@ body {
 }
 
 .portal-list li {
-  font-size: 0.65rem;
+  font-size: 0.78rem;
   color: var(--text);
-  letter-spacing: 0.05em;
+  letter-spacing: 0.02em;
   line-height: 1.7;
   padding-left: 1rem;
   border-left: 1px solid var(--line);
@@ -614,7 +619,7 @@ body {
 .endpoint-path {
   flex: 1;
   font-family: inherit;
-  font-size: 0.72rem;
+  font-size: 0.82rem;
   color: var(--mid);
   letter-spacing: 0.06em;
 }
@@ -627,7 +632,7 @@ body {
 }
 
 .method-badge {
-  font-size: 0.55rem;
+  font-size: 0.64rem;
   font-weight: 700;
   letter-spacing: 0.1em;
   padding: 0.15rem 0.5rem;
@@ -647,9 +652,9 @@ body {
 }
 
 .endpoint-desc {
-  font-size: 0.65rem;
+  font-size: 0.78rem;
   color: var(--text);
-  letter-spacing: 0.05em;
+  letter-spacing: 0.02em;
   line-height: 1.75;
 }
 
@@ -667,14 +672,14 @@ body {
 }
 
 .response-label {
-  font-size: 0.52rem;
+  font-size: 0.62rem;
   color: var(--dim);
   letter-spacing: 0.2em;
   text-transform: uppercase;
 }
 
 .status-badge {
-  font-size: 0.55rem;
+  font-size: 0.65rem;
   letter-spacing: 0.08em;
   padding: 0.12rem 0.45rem;
   border: 1px solid;
@@ -691,15 +696,15 @@ body {
 
 .response-pre code {
   font-family: inherit;
-  font-size: 0.62rem;
-  color: #4a4a6a;
-  letter-spacing: 0.04em;
+  font-size: 0.74rem;
+  color: #a1a1d8;
+  letter-spacing: 0.02em;
   line-height: 1.6;
   white-space: pre;
 }
 
 .snippet-label {
-  font-size: 0.5rem;
+  font-size: 0.6rem;
   color: var(--dim);
   letter-spacing: 0.25em;
   text-transform: uppercase;
@@ -724,8 +729,8 @@ body {
   border-right: 1px solid var(--line);
   color: var(--dim);
   font-family: inherit;
-  font-size: 0.55rem;
-  letter-spacing: 0.15em;
+  font-size: 0.65rem;
+  letter-spacing: 0.06em;
   padding: 0.45rem 0.85rem;
   cursor: pointer;
   transition: color 0.15s, background 0.15s;
@@ -741,8 +746,8 @@ body {
   border-left: 1px solid var(--line);
   color: var(--dim);
   font-family: inherit;
-  font-size: 0.52rem;
-  letter-spacing: 0.2em;
+  font-size: 0.64rem;
+  letter-spacing: 0.08em;
   padding: 0.45rem 0.85rem;
   cursor: pointer;
   transition: color 0.15s;
@@ -759,9 +764,9 @@ body {
 
 .code-pre code {
   font-family: inherit;
-  font-size: 0.63rem;
-  color: #4a5a4a;
-  letter-spacing: 0.04em;
+  font-size: 0.75rem;
+  color: #9fca9f;
+  letter-spacing: 0.02em;
   line-height: 1.65;
   white-space: pre;
 }
@@ -771,8 +776,8 @@ body {
 .status-table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 0.62rem;
-  letter-spacing: 0.05em;
+  font-size: 0.74rem;
+  letter-spacing: 0.02em;
   color: var(--text);
 }
 
@@ -781,8 +786,8 @@ body {
   padding: 0.6rem 0.75rem;
   border-bottom: 1px solid var(--line);
   color: var(--dim);
-  font-size: 0.5rem;
-  letter-spacing: 0.25em;
+  font-size: 0.6rem;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   font-weight: normal;
 }
@@ -798,7 +803,7 @@ body {
 
 .inline-code {
   font-family: inherit;
-  font-size: 0.6rem;
+  font-size: 0.72rem;
   color: var(--text);
   background: #0a0a0a;
   padding: 0.1rem 0.35rem;
@@ -834,7 +839,7 @@ body {
 }
 
 .dashboard-label {
-  font-size: 0.55rem;
+  font-size: 0.68rem;
   color: var(--dim);
   letter-spacing: 0.1em;
   line-height: 1.5;

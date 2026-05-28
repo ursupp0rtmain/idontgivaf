@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,11 +13,11 @@
 
         :root {
             --bg:     #080808;
-            --text:   #5a5a5a;
-            --mid:    #888;
-            --bright: #d0d0d0;
-            --dim:    #2a2a2a;
-            --red:    #cc2200;
+            --text:   #a6a6a6;
+            --mid:    #cfcfcf;
+            --bright: #f0f0f0;
+            --dim:    #6f6f6f;
+            --red:    #ff4a2d;
         }
 
         html { scroll-behavior: auto; }
@@ -25,9 +25,12 @@
         body {
             background: var(--bg);
             color: var(--text);
-            font-family: 'Courier New', Courier, monospace;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', 'Courier New', monospace;
+            line-height: 1.5;
             min-height: 100vh;
             overflow-x: hidden;
+            text-rendering: optimizeLegibility;
+            -webkit-font-smoothing: antialiased;
         }
 
         /* ── HERO ── */
@@ -43,17 +46,17 @@
         }
 
         .site-id {
-            font-size: 0.65rem;
+            font-size: 0.72rem;
             color: var(--dim);
-            letter-spacing: 0.5em;
+            letter-spacing: 0.32em;
             text-transform: uppercase;
             margin-bottom: 5rem;
         }
 
         .counter-label {
-            font-size: 0.6rem;
+            font-size: 0.72rem;
             color: var(--dim);
-            letter-spacing: 0.7em;
+            letter-spacing: 0.36em;
             text-transform: uppercase;
             margin-bottom: 0.75rem;
         }
@@ -87,10 +90,10 @@
 
         #status {
             margin-top: 1.75rem;
-            font-size: 0.75rem;
+            font-size: 0.9rem;
             color: var(--dim);
-            letter-spacing: 0.2em;
-            height: 1.1rem;
+            letter-spacing: 0.08em;
+            min-height: 1.35rem;
             opacity: 0;
             transition: opacity 0.4s;
         }
@@ -102,9 +105,9 @@
             bottom: 2.5rem;
             left: 50%;
             transform: translateX(-50%);
-            font-size: 0.58rem;
+            font-size: 0.68rem;
             color: var(--dim);
-            letter-spacing: 0.35em;
+            letter-spacing: 0.12em;
             white-space: nowrap;
             animation: breathe 5s ease-in-out infinite;
         }
@@ -121,8 +124,8 @@
             border: 1px solid var(--dim);
             color: var(--text);
             font-family: inherit;
-            font-size: 0.7rem;
-            letter-spacing: 0.25em;
+            font-size: 0.78rem;
+            letter-spacing: 0.12em;
             padding: 0.7rem 1.5rem;
             cursor: pointer;
             z-index: 99;
@@ -144,7 +147,7 @@
 
         /* ── VOID ── */
         #void {
-            max-width: 540px;
+            max-width: 680px;
             margin: 0 auto;
             padding: 0 2rem 8rem;
         }
@@ -152,9 +155,10 @@
         .void-line {
             padding: 1.25rem 0;
             border-top: 1px solid #131313;
-            font-size: 0.72rem;
-            color: var(--dim);
-            letter-spacing: 0.1em;
+            font-size: 0.86rem;
+            color: var(--text);
+            letter-spacing: 0.03em;
+            line-height: 1.8;
             opacity: 0;
             transform: translateY(8px);
             animation: rise 0.55s forwards;
@@ -202,16 +206,16 @@
 
 <section class="hero">
     <p class="site-id">idontgivaf.uk</p>
-    <p class="counter-label">gegebene f*cks</p>
+    <p class="counter-label">f*cks given</p>
     <div id="counter">0</div>
     <p id="status"></p>
-    <p class="scroll-hint">↓ &nbsp; hier unten ist auch nichts &nbsp; ↓</p>
+    <p class="scroll-hint">↓ &nbsp; there is nothing down here either &nbsp; ↓</p>
 </section>
 
 <div id="void"></div>
 <div id="sentinel"></div>
 
-<button id="flee-btn" aria-label="Einen F*ck geben">einen f*ck geben</button>
+<button id="flee-btn" aria-label="Give a f*ck">give a f*ck</button>
 
 <div id="sigh-overlay">
     <p id="sigh-msg"></p>
@@ -327,23 +331,23 @@ const sighMsg  = document.getElementById('sigh-msg');
 let eggActive  = false;
 
 const SIGHS = [
-    '*seufz* ...',
-    'bitte. nicht.',
-    'oh nein. oh nein nein nein.',
-    'das war ein versehen. korrigiere.',
-    'kurz unachtsam gewesen. entschuldigung.',
-    'system.exe hat versagt.',
-    'das hätte nicht passieren sollen.',
+    '*sigh* ...',
+    'please. no.',
+    'oh no. oh no no no.',
+    'that was a mistake. correcting.',
+    'brief lapse in judgment. sorry.',
+    'system.exe has failed.',
+    'that should not have happened.',
     'f*ck.dll: unexpected value 1',
 ];
 
 const REVERTS = [
-    '— uff, zu anstrengend.',
-    '— fehler behoben. danke für nichts.',
-    '— f*ck zurückgezogen. wie immer.',
-    '— war nichts. wie alles hier.',
-    '— zähler korrigiert. bitte gehst du jetzt.',
-    '— ausgabe storniert. rückerstattung: 0 f*cks.',
+    '-- ugh, too much effort.',
+    '-- bug fixed. thanks for nothing.',
+    '-- f*ck withdrawn. as usual.',
+    '-- never mind. like everything here.',
+    '-- counter corrected. please leave now.',
+    '-- output canceled. refund: 0 f*cks.',
 ];
 
 function shakeCounter() {
@@ -395,53 +399,53 @@ const voidEl   = document.getElementById('void');
 const sentinel = document.getElementById('sentinel');
 
 const NOTHING = [
-    'hier unten ist auch nichts.',
-    'warum scrollst du noch?',
-    'geh weg.',
-    'lass mich in ruhe.',
-    'hier ist wirklich nichts.',
-    'du verschwendest deine kostbare lebenszeit.',
-    'der inhalt kommt gleich.  (nein.)',
-    '404: bedeutung nicht gefunden.',
-    'weiter unten wird es besser.  (wird es nicht.)',
+    'there is nothing down here either.',
+    'why are you still scrolling?',
+    'go away.',
+    'leave me alone.',
+    'there is really nothing here.',
+    'you are wasting precious life.',
+    'content is loading soon.  (no.)',
+    '404: meaning not found.',
+    'it gets better further down.  (it does not.)',
     '...',
-    'ich meine es ernst.',
+    'I mean it.',
     'stop.',
-    'nein.',
-    'wirklich? immer noch?',
-    'okay, ich respektiere die ausdauer. aber: nein.',
-    'die leere ist unendlich. du nicht.',
-    '// TODO: inhalt hinzufügen  ← (nie erledigt)',
-    'error 000: zu viel nichts.',
+    'no.',
+    'really? still?',
+    'okay, I respect the stamina. but: no.',
+    'the void is infinite. you are not.',
+    '// TODO: add content  <- (never done)',
+    'error 000: too much nothing.',
     'NULL',
     'undefined',
     'NaN',
     '> _',
-    'der server gähnt.',
-    'der entwickler schläft.',
-    'der designer hat die kündigung eingereicht.',
-    'du bist jetzt hartnäckiger als der knopf.',
-    'glückwunsch. dein preis: noch mehr nichts.',
-    'hier hätte werbung gestanden. aber wen interessiert das.',
-    '§ 42 abs. 0 nichtigkeitsgesetz: hier ist nichts.',
+    'the server yawns.',
+    'the developer is asleep.',
+    'the designer has resigned.',
+    'you are now more persistent than the button.',
+    'congratulations. your prize: even more nothing.',
+    'there would have been an ad here. but who cares.',
+    'section 42, paragraph 0 of the nullity act: nothing is here.',
     'loading...   just kidding.',
-    'vielleicht ist genau das die botschaft.',
-    'vielleicht auch nicht. wahrscheinlich nicht.',
-    'philosophisch betrachtet: sehr konsequent.',
-    'du kannst nicht gewinnen.',
-    'du kannst noch nicht mal verlieren. dafür müsste es etwas geben.',
-    'kein inhalt wurde bei diesen dreharbeiten verletzt.',
+    'maybe this is exactly the message.',
+    'maybe not. probably not.',
+    'philosophically speaking: very consistent.',
+    'you cannot win.',
+    'you cannot even lose. that would require something to exist.',
+    'no content was harmed in the making of this page.',
     'here there be dragons.  (there aren\'t.)',
-    'die seite wächst. der sinn schrumpft.',
-    'beende dieses leiden. schließe den tab.',
-    'auf dieser ebene ist alles gleich: leer.',
-    'bitte scrolle nach oben. ist genauso sinnlos, aber kürzer.',
-    'du hast [redacted] sekunden deines lebens verschwendet.',
-    'die leere grüßt zurück.',
-    'irgendwo da oben ist der knopf. er fragt sich, was du hier suchst.',
-    'echo "sinn" → command not found',
-    'rm -rf ./bedeutung  →  nothing to remove',
-    'ping existenz  →  request timeout',
+    'the page grows. the meaning shrinks.',
+    'end this suffering. close the tab.',
+    'on this level, everything is equally empty.',
+    'please scroll back up. just as pointless, but shorter.',
+    'you have wasted [redacted] seconds of your life.',
+    'the void says hello back.',
+    'somewhere up there is the button. it wonders what you are looking for.',
+    'echo "meaning" -> command not found',
+    'rm -rf ./meaning  ->  nothing to remove',
+    'ping existence  ->  request timeout',
 ];
 
 let lineIdx = 0;

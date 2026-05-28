@@ -1,6 +1,6 @@
 let lastAttempt = 0
 
-// Throttled auf 1x pro Sekunde — der Button flieht öfter als wir posten wollen
+// Throttled to once per second because the button flees more often than we want to post.
 export async function recordAttempt() {
   const now = Date.now()
   if (now - lastAttempt < 1000) return

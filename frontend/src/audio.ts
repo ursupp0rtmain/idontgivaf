@@ -4,7 +4,7 @@ export function playSigh() {
     const t   = ctx.currentTime
     const dur = 1.9
 
-    // Atemrauschen — gefiltertes weißes Rauschen
+    // Breath layer -- filtered white noise.
     const bufLen = ctx.sampleRate * dur
     const buf    = ctx.createBuffer(1, bufLen, ctx.sampleRate)
     const data   = buf.getChannelData(0)
@@ -28,7 +28,7 @@ export function playSigh() {
     noise.connect(bpf); bpf.connect(ng); ng.connect(ctx.destination)
     noise.start(t); noise.stop(t + dur)
 
-    // Vokal-Komponente — absinkender Sinus für das "Ugh"
+    // Vocal "ugh" layer -- descending sine.
     const osc = ctx.createOscillator()
     osc.type = 'sine'
     osc.frequency.setValueAtTime(240, t + 0.08)
@@ -43,5 +43,5 @@ export function playSigh() {
 
     osc.connect(og); og.connect(ctx.destination)
     osc.start(t + 0.08); osc.stop(t + dur)
-  } catch (_) { /* kein Audio-Support — schweigend ignorieren */ }
+  } catch (_) { /* no audio support -- silently ignore */ }
 }
