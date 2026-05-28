@@ -682,8 +682,10 @@ body {
   border: 1px solid;
 }
 
+.status-badge--201 { color: #3a8a3a;       border-color: #1a3a1a; }
 .status-badge--418 { color: var(--violet); border-color: #3a1e6b; }
 .status-badge--406 { color: #cc4444;       border-color: #4a1010; }
+.status-badge--401 { color: #cc8844;       border-color: #4a3010; }
 
 .response-pre {
   margin: 0;
@@ -805,6 +807,88 @@ body {
   background: #0a0a0a;
   padding: 0.1rem 0.35rem;
   border: 1px solid var(--line);
+}
+
+/* ── API KEY GENERATOR ────────────────────────────────────────────────────── */
+
+.api-key-gen {
+  margin-top: 1rem;
+}
+
+.api-key-btn {
+  background: transparent;
+  border: 1px solid var(--dim);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  padding: 0.6rem 1.25rem;
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s;
+}
+
+.api-key-btn:hover:not(:disabled) {
+  border-color: var(--text);
+  color: var(--mid);
+}
+
+.api-key-btn:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.api-key-result {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  border: 1px solid var(--line);
+  background: #060606;
+  padding: 0.55rem 0.85rem;
+}
+
+.api-key-value {
+  font-family: inherit;
+  font-size: 0.68rem;
+  color: var(--mid);
+  letter-spacing: 0.04em;
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  user-select: all;
+}
+
+.api-key-copy {
+  background: transparent;
+  border: 1px solid var(--line);
+  color: var(--dim);
+  font-family: inherit;
+  font-size: 0.55rem;
+  letter-spacing: 0.15em;
+  padding: 0.25rem 0.65rem;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: color 0.15s, border-color 0.15s;
+}
+
+.api-key-copy:hover {
+  color: var(--text);
+  border-color: var(--dim);
+}
+
+.api-key-error {
+  margin-top: 0.5rem;
+  font-size: 0.62rem;
+  color: #cc4444;
+  letter-spacing: 0.06em;
+}
+
+.api-key-hint {
+  margin-top: 0.5rem;
+  font-size: 0.6rem;
+  color: var(--dim);
+  letter-spacing: 0.08em;
+  font-style: italic;
 }
 
 /* ── DASHBOARD ────────────────────────────────────────────────────────────── */

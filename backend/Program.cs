@@ -75,40 +75,121 @@ app.MapGet("/api/stats", (StatsDb db, VisitorTracker vt) =>
     return Results.Ok(new { s.attempts, s.clicks, visitors = vt.Count, s.apiCalls });
 });
 
-// ── FaaS ENDPOINTS ────────────────────────────────────────────────────────
+// ── API KEY ENDPOINTS ─────────────────────────────────────────────────────
 
-app.MapGet("/api/fucks/current", async (IHubContext<NothingHub> hub, StatsDb db, VisitorTracker vt) =>
+string[] keyCreatedMessages =
+[
+    "Key created. It won't help.",
+    "Congratulations on your new key. It unlocks nothing.",
+    "Key registered. You are now officially authenticated to be ignored.",
+    "API key issued. Your rejections will now be personalized.",
+    "Welcome aboard. Your key grants you premium-tier indifference.",
+];
+
+app.MapPost("/api/keys/register", async (IHubContext<NothingHub> hub, StatsDb db, VisitorTracker vt) =>
 {
-    db.IncrementApiCalls();
-    var s = db.GetStats();
-    await hub.Clients.All.SendAsync("StatsUpdated",
-        new { s.attempts, s.clicks, visitors = vt.Count, s.apiCalls });
+    var key = db.CreateApiKey();
+    var total = db.GetTotalKeys();
     await hub.Clients.All.SendAsync("RejectionFeed",
-        new { msg = "Developer called GET /api/fucks/current. Teapot responds: 418.", tag = "api" });
+        new { msg = $"New API key registered. Total keys issued: {total}. Fucks given: still 0.", tag = "api" });
     return Results.Json(
         new
         {
+            api_key = key,
+            message = keyCreatedMessages[Random.Shared.Next(keyCreatedMessages.Length)],
+            permissions = new[] { "NONE" },
+            rate_limit = "unlimited (we don't care)",
             fucks_given = 0,
-            message     = "System is too apathetic to process.",
-            status      = "MAXIMUM_INDIFFERENCE",
+        },
+        statusCode: 201);
+});
+
+app.MapGet("/api/keys/{key}/stats", (string key, StatsDb db) =>
+{
+    var info = db.GetApiKeyInfo(key);
+    if (info is null)
+        return Results.Json(
+            new { error = "KEY_NOT_FOUND", message = "This key doesn't exist. Much like our interest." },
+            statusCode: 404);
+    return Results.Json(
+        new
+        {
+            api_key     = info.Key,
+            created_at  = info.CreatedAt,
+            rejections  = info.Rejections,
+            fucks_given = 0,
+            status      = info.Rejections == 0
+                ? "UNUSED_BUT_STILL_POINTLESS"
+                : $"REJECTED_{info.Rejections}_TIMES",
         },
         statusCode: 418);
 });
 
-app.MapPost("/api/fucks/give", async (IHubContext<NothingHub> hub, StatsDb db, VisitorTracker vt) =>
+// ── FaaS ENDPOINTS ────────────────────────────────────────────────────────
+
+string? ValidateApiKey(HttpContext ctx, StatsDb db)
 {
+    var header = ctx.Request.Headers["X-Api-Key"].FirstOrDefault();
+    if (header is null) return null;
+    if (!db.ApiKeyExists(header)) return "__invalid__";
+    db.IncrementKeyRejections(header);
+    return header;
+}
+
+app.MapGet("/api/fucks/current", async (HttpContext ctx, IHubContext<NothingHub> hub, StatsDb db, VisitorTracker vt) =>
+{
+    var apiKey = ValidateApiKey(ctx, db);
+    if (apiKey == "__invalid__")
+        return Results.Json(
+            new { error = "INVALID_KEY", message = "Unrecognized API key. We don't know you, and we don't care.", fucks_given = 0 },
+            statusCode: 401);
+
     db.IncrementApiCalls();
     var s = db.GetStats();
     await hub.Clients.All.SendAsync("StatsUpdated",
         new { s.attempts, s.clicks, visitors = vt.Count, s.apiCalls });
-    await hub.Clients.All.SendAsync("RejectionFeed",
-        new { msg = "Developer attempted POST /api/fucks/give. Payload completely ignored.", tag = "api" });
+
+    var feedMsg = apiKey is not null
+        ? "Authenticated developer called GET /api/fucks/current. Key recognized. Still rejected."
+        : "Developer called GET /api/fucks/current. Teapot responds: 418.";
+    await hub.Clients.All.SendAsync("RejectionFeed", new { msg = feedMsg, tag = "api" });
+
     return Results.Json(
         new
         {
-            fucks_given = 0,
-            message     = "406 Not Acceptable: Your input has been thoroughly disregarded.",
-            error       = "APATHY_OVERFLOW",
+            fucks_given    = 0,
+            message        = "System is too apathetic to process.",
+            status         = "MAXIMUM_INDIFFERENCE",
+            authenticated  = apiKey is not null,
+        },
+        statusCode: 418);
+});
+
+app.MapPost("/api/fucks/give", async (HttpContext ctx, IHubContext<NothingHub> hub, StatsDb db, VisitorTracker vt) =>
+{
+    var apiKey = ValidateApiKey(ctx, db);
+    if (apiKey == "__invalid__")
+        return Results.Json(
+            new { error = "INVALID_KEY", message = "Unrecognized API key. We don't know you, and we don't care.", fucks_given = 0 },
+            statusCode: 401);
+
+    db.IncrementApiCalls();
+    var s = db.GetStats();
+    await hub.Clients.All.SendAsync("StatsUpdated",
+        new { s.attempts, s.clicks, visitors = vt.Count, s.apiCalls });
+
+    var feedMsg = apiKey is not null
+        ? "Authenticated developer attempted POST /api/fucks/give. Payload ignored with extra contempt."
+        : "Developer attempted POST /api/fucks/give. Payload completely ignored.";
+    await hub.Clients.All.SendAsync("RejectionFeed", new { msg = feedMsg, tag = "api" });
+
+    return Results.Json(
+        new
+        {
+            fucks_given    = 0,
+            message        = "406 Not Acceptable: Your input has been thoroughly disregarded.",
+            error          = "APATHY_OVERFLOW",
+            authenticated  = apiKey is not null,
         },
         statusCode: 406);
 });
@@ -124,6 +205,7 @@ app.Run();
 // ── SERVICES ──────────────────────────────────────────────────────────────
 
 public record DbStats(long attempts, long clicks, long apiCalls);
+public record ApiKeyInfo(string Key, string CreatedAt, long Rejections);
 
 public class StatsDb
 {
@@ -152,6 +234,15 @@ public class StatsDb
         {
             // expected on DBs already migrated
         }
+
+        cmd.CommandText = @"
+            CREATE TABLE IF NOT EXISTS api_keys (
+                key        TEXT PRIMARY KEY,
+                created_at TEXT NOT NULL,
+                rejections INTEGER NOT NULL DEFAULT 0
+            );
+        ";
+        cmd.ExecuteNonQuery();
     }
 
     public void IncrementAttempts() => Exec("UPDATE stats SET attempts  = attempts  + 1 WHERE id = 1");
@@ -167,6 +258,56 @@ public class StatsDb
         return r.Read()
             ? new DbStats(r.GetInt64(0), r.GetInt64(1), r.GetInt64(2))
             : new DbStats(0, 0, 0);
+    }
+
+    public string CreateApiKey()
+    {
+        var key = $"fk_{Guid.NewGuid():N}";
+        using var conn = Open();
+        using var cmd  = conn.CreateCommand();
+        cmd.CommandText = "INSERT INTO api_keys (key, created_at) VALUES (@k, @t)";
+        cmd.Parameters.AddWithValue("@k", key);
+        cmd.Parameters.AddWithValue("@t", DateTime.UtcNow.ToString("o"));
+        cmd.ExecuteNonQuery();
+        return key;
+    }
+
+    public bool ApiKeyExists(string key)
+    {
+        using var conn = Open();
+        using var cmd  = conn.CreateCommand();
+        cmd.CommandText = "SELECT 1 FROM api_keys WHERE key = @k";
+        cmd.Parameters.AddWithValue("@k", key);
+        return cmd.ExecuteScalar() is not null;
+    }
+
+    public void IncrementKeyRejections(string key)
+    {
+        using var conn = Open();
+        using var cmd  = conn.CreateCommand();
+        cmd.CommandText = "UPDATE api_keys SET rejections = rejections + 1 WHERE key = @k";
+        cmd.Parameters.AddWithValue("@k", key);
+        cmd.ExecuteNonQuery();
+    }
+
+    public ApiKeyInfo? GetApiKeyInfo(string key)
+    {
+        using var conn = Open();
+        using var cmd  = conn.CreateCommand();
+        cmd.CommandText = "SELECT key, created_at, rejections FROM api_keys WHERE key = @k";
+        cmd.Parameters.AddWithValue("@k", key);
+        using var r = cmd.ExecuteReader();
+        return r.Read()
+            ? new ApiKeyInfo(r.GetString(0), r.GetString(1), r.GetInt64(2))
+            : null;
+    }
+
+    public long GetTotalKeys()
+    {
+        using var conn = Open();
+        using var cmd  = conn.CreateCommand();
+        cmd.CommandText = "SELECT COUNT(*) FROM api_keys";
+        return (long)(cmd.ExecuteScalar() ?? 0);
     }
 
     private void Exec(string sql)

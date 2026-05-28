@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import { useStats } from '../statsContext'
 
 const BASE = 'https://idontgivaf.uk'
@@ -17,42 +17,133 @@ interface Endpoint {
 
 const ENDPOINTS: Endpoint[] = [
   {
-    method:         'GET',
-    path:           '/api/fucks/current',
-    anchor:         'get-current',
+    method:         'POST',
+    path:           '/api/keys/register',
+    anchor:         'post-register',
     description:
-      'Retrieves the current number of fucks given by the system. ' +
-      'This endpoint is always available, always consistent, and always returns the same value. ' +
-      'It is the most reliable endpoint we have ever built.',
-    responseCode:   418,
-    responseStatus: "I'm a Teapot",
+      'Creates a new API key. No email required. No verification. No purpose. ' +
+      'The key is returned immediately and grants you authenticated access to the same rejections everyone else gets.',
+    responseCode:   201,
+    responseStatus: 'Created',
     responseBody:   {
+      api_key:     'fk_a1b2c3d4e5f6...',
+      message:     "Key created. It won't help.",
+      permissions: ['NONE'],
+      rate_limit:  "unlimited (we don't care)",
       fucks_given: 0,
-      message:     'System is too apathetic to process.',
-      status:      'MAXIMUM_INDIFFERENCE',
     },
     snippets: [
       {
         lang: 'curl',
-        code: `curl -X GET ${BASE}/api/fucks/current`,
+        code: `curl -X POST ${BASE}/api/keys/register`,
       },
       {
         lang: 'javascript',
         code:
-`const res  = await fetch('${BASE}/api/fucks/current')
-// HTTP 418 I'm a Teapot
+`const res  = await fetch('${BASE}/api/keys/register', { method: 'POST' })
+// HTTP 201 Created
 const data = await res.json()
-console.log(data.fucks_given)  // → 0
-console.log(data.status)       // → "MAXIMUM_INDIFFERENCE"`,
+console.log(data.api_key)      // → "fk_a1b2c3d4..."
+console.log(data.permissions)  // → ["NONE"]`,
       },
       {
         lang: 'python',
         code:
 `import requests
 
-r = requests.get('${BASE}/api/fucks/current')
+r = requests.post('${BASE}/api/keys/register')
+# r.status_code → 201
+print(r.json()['api_key'])  # → "fk_a1b2c3d4..."`,
+      },
+    ],
+  },
+  {
+    method:         'GET',
+    path:           '/api/keys/{key}/stats',
+    anchor:         'get-key-stats',
+    description:
+      'Retrieves statistics for a specific API key. ' +
+      'See exactly how many times you have been personally rejected. ' +
+      'Fucks given will always be 0 regardless of your effort.',
+    responseCode:   418,
+    responseStatus: "I'm a Teapot",
+    responseBody:   {
+      api_key:     'fk_a1b2c3d4e5f6...',
+      created_at:  '2026-01-01T00:00:00Z',
+      rejections:  42,
+      fucks_given: 0,
+      status:      'REJECTED_42_TIMES',
+    },
+    snippets: [
+      {
+        lang: 'curl',
+        code: `curl -X GET ${BASE}/api/keys/YOUR_KEY/stats`,
+      },
+      {
+        lang: 'javascript',
+        code:
+`const KEY  = 'fk_your_key_here'
+const res  = await fetch(\`${BASE}/api/keys/\${KEY}/stats\`)
+// HTTP 418 I'm a Teapot
+const data = await res.json()
+console.log(data.rejections)   // → 42
+console.log(data.fucks_given)  // → 0`,
+      },
+      {
+        lang: 'python',
+        code:
+`import requests
+
+key = 'fk_your_key_here'
+r = requests.get(f'${BASE}/api/keys/{key}/stats')
 # r.status_code → 418
-print(r.json()['fucks_given'])  # → 0`,
+print(r.json()['rejections'])  # → 42`,
+      },
+    ],
+  },
+  {
+    method:         'GET',
+    path:           '/api/fucks/current',
+    anchor:         'get-current',
+    description:
+      'Retrieves the current number of fucks given by the system. ' +
+      'This endpoint is always available, always consistent, and always returns the same value. ' +
+      'Optionally include your API key via X-Api-Key header for a personalized rejection.',
+    responseCode:   418,
+    responseStatus: "I'm a Teapot",
+    responseBody:   {
+      fucks_given:   0,
+      message:       'System is too apathetic to process.',
+      status:        'MAXIMUM_INDIFFERENCE',
+      authenticated: true,
+    },
+    snippets: [
+      {
+        lang: 'curl',
+        code:
+`curl -X GET ${BASE}/api/fucks/current \\
+  -H "X-Api-Key: fk_your_key_here"`,
+      },
+      {
+        lang: 'javascript',
+        code:
+`const res  = await fetch('${BASE}/api/fucks/current', {
+  headers: { 'X-Api-Key': 'fk_your_key_here' },
+})
+// HTTP 418 I'm a Teapot
+const data = await res.json()
+console.log(data.fucks_given)    // → 0
+console.log(data.authenticated)  // → true`,
+      },
+      {
+        lang: 'python',
+        code:
+`import requests
+
+r = requests.get('${BASE}/api/fucks/current',
+    headers={'X-Api-Key': 'fk_your_key_here'})
+# r.status_code → 418
+print(r.json()['authenticated'])  # → True`,
       },
     ],
   },
@@ -63,21 +154,21 @@ print(r.json()['fucks_given'])  # → 0`,
     description:
       'Attempts to submit a fuck to the system. ' +
       'Any payload is accepted and immediately disregarded. ' +
-      'Content-Type is irrelevant. ' +
-      'Your effort is appreciated and ignored in equal measure.',
+      'Content-Type is irrelevant. API key optional but equally futile.',
     responseCode:   406,
     responseStatus: 'Not Acceptable',
     responseBody:   {
-      fucks_given: 0,
-      message:
-        '406 Not Acceptable: Your input has been thoroughly disregarded.',
-      error: 'APATHY_OVERFLOW',
+      fucks_given:   0,
+      message:       '406 Not Acceptable: Your input has been thoroughly disregarded.',
+      error:         'APATHY_OVERFLOW',
+      authenticated: true,
     },
     snippets: [
       {
         lang: 'curl',
         code:
 `curl -X POST ${BASE}/api/fucks/give \\
+  -H "X-Api-Key: fk_your_key_here" \\
   -H "Content-Type: application/json" \\
   -d '{"amount": 9999, "urgency": "critical"}'`,
       },
@@ -86,8 +177,11 @@ print(r.json()['fucks_given'])  # → 0`,
         code:
 `const res = await fetch('${BASE}/api/fucks/give', {
   method:  'POST',
-  headers: { 'Content-Type': 'application/json' },
-  body:    JSON.stringify({ amount: 9999 }),
+  headers: {
+    'Content-Type': 'application/json',
+    'X-Api-Key':    'fk_your_key_here',
+  },
+  body: JSON.stringify({ amount: 9999 }),
 })
 // HTTP 406 Not Acceptable
 const data = await res.json()
@@ -99,6 +193,7 @@ console.log(data.error)  // → "APATHY_OVERFLOW"`,
 `import requests
 
 r = requests.post('${BASE}/api/fucks/give',
+    headers={'X-Api-Key': 'fk_your_key_here'},
     json={'amount': 9999, 'urgency': 'critical'})
 # r.status_code → 406
 print(r.json()['error'])  # → "APATHY_OVERFLOW"`,
@@ -196,6 +291,54 @@ function EndpointCard({ ep }: { ep: Endpoint }) {
   )
 }
 
+function ApiKeyGenerator() {
+  const [key, setKey]         = useState<string | null>(null)
+  const [loading, setLoading] = useState(false)
+  const [copied, setCopied]   = useState(false)
+  const [error, setError]     = useState<string | null>(null)
+
+  const generate = useCallback(async () => {
+    setLoading(true)
+    setError(null)
+    try {
+      const res  = await fetch('/api/keys/register', { method: 'POST' })
+      const data = await res.json()
+      setKey(data.api_key)
+    } catch {
+      setError('Failed to reach the server. Even the network doesn\'t care.')
+    } finally {
+      setLoading(false)
+    }
+  }, [])
+
+  function copyKey() {
+    if (!key) return
+    navigator.clipboard.writeText(key).then(() => {
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000)
+    })
+  }
+
+  return (
+    <div className="api-key-gen">
+      {!key ? (
+        <button className="api-key-btn" onClick={generate} disabled={loading}>
+          {loading ? 'generating...' : 'generate api key'}
+        </button>
+      ) : (
+        <div className="api-key-result">
+          <code className="api-key-value">{key}</code>
+          <button className="api-key-copy" onClick={copyKey}>
+            {copied ? '✓ copied' : 'copy'}
+          </button>
+        </div>
+      )}
+      {error && <p className="api-key-error">{error}</p>}
+      {key && <p className="api-key-hint">store this key. we won't show it again. (not that it matters.)</p>}
+    </div>
+  )
+}
+
 function fmt(n: number) {
   return n.toLocaleString('en-US')
 }
@@ -227,6 +370,10 @@ export default function DevPortal({ onBack }: { onBack: () => void }) {
 
         {/* sidebar nav */}
         <nav className="portal-nav">
+          <p className="nav-section-label">Auth</p>
+          <a href="#authentication" className="nav-link">Authentication</a>
+          <a href="#post-register"  className="nav-link">POST /api/keys/register</a>
+          <a href="#get-key-stats"  className="nav-link">GET /api/keys/:key/stats</a>
           <p className="nav-section-label">Endpoints</p>
           <a href="#get-current" className="nav-link">GET /api/fucks/current</a>
           <a href="#post-give"   className="nav-link">POST /api/fucks/give</a>
@@ -243,7 +390,7 @@ export default function DevPortal({ onBack }: { onBack: () => void }) {
           <section className="portal-section" id="intro">
             <div className="portal-section-header">
               <h2 className="portal-section-title">Introduction</h2>
-              <span className="portal-version">v0.0.0-apathetic</span>
+              <span className="portal-version">v0.1.0-authenticated-apathy</span>
             </div>
             <p className="portal-text">
               Welcome to the official FaaS (F*ck as a Service) API. This API provides
@@ -251,13 +398,33 @@ export default function DevPortal({ onBack }: { onBack: () => void }) {
               fully documented, and completely pointless.
             </p>
             <p className="portal-text">
-              Authentication is not required, because nothing here is worth protecting.
-              There are no API keys. There are no rate limits. Every request is treated
-              with the same level of care: none.
+              Authentication is now available via API keys. You can register a key
+              for free with no verification whatsoever. It grants you no additional
+              privileges. Every request is still treated with the same level of care: none.
             </p>
             <div className="portal-callout portal-callout--warn">
               <strong>Important:</strong> This API will never return a 200 OK.
-              This is not a bug. This is the entire point.
+              Not even with an API key. This is not a bug. This is the entire point.
+            </div>
+          </section>
+
+          {/* authentication */}
+          <section className="portal-section" id="authentication">
+            <h2 className="portal-section-title">Authentication</h2>
+            <p className="portal-text">
+              Generate an API key below. Include it in your requests via
+              the <code className="inline-code">X-Api-Key</code> header.
+              Your key will be recognized, acknowledged, and then completely ignored.
+            </p>
+            <ApiKeyGenerator />
+            <p className="portal-text" style={{ marginTop: '1.25rem' }}>
+              With a valid key, every rejection is tracked against your account.
+              You can check your personal rejection count
+              via <code className="inline-code">GET /api/keys/{'{'}<em>key</em>{'}'}/stats</code>.
+            </p>
+            <div className="portal-callout portal-callout--info">
+              <strong>Note:</strong> API keys are optional. Unauthenticated requests
+              are rejected identically — you just won't get credit for the attempt.
             </div>
           </section>
 
@@ -280,9 +447,14 @@ export default function DevPortal({ onBack }: { onBack: () => void }) {
               </thead>
               <tbody>
                 <tr>
+                  <td><StatusBadge code={201} status="Created" /></td>
+                  <td>Your API key was created.</td>
+                  <td>POST /api/keys/register — the only endpoint that pretends to cooperate.</td>
+                </tr>
+                <tr>
                   <td><StatusBadge code={418} status="I'm a Teapot" /></td>
                   <td>The server is a teapot.</td>
-                  <td>GET /api/fucks/current — always.</td>
+                  <td>GET /api/fucks/current, GET /api/keys/:key/stats — always.</td>
                 </tr>
                 <tr>
                   <td><StatusBadge code={406} status="Not Acceptable" /></td>
@@ -290,9 +462,14 @@ export default function DevPortal({ onBack }: { onBack: () => void }) {
                   <td>POST /api/fucks/give — always.</td>
                 </tr>
                 <tr>
+                  <td><StatusBadge code={401} status="Unauthorized" /></td>
+                  <td>Invalid API key.</td>
+                  <td>Any endpoint with an unrecognized X-Api-Key header.</td>
+                </tr>
+                <tr>
                   <td><code className="inline-code">200 OK</code></td>
                   <td>Success.</td>
-                  <td>Never. Not on this API.</td>
+                  <td>Never. Not on this API. Not even with a key.</td>
                 </tr>
               </tbody>
             </table>
@@ -317,7 +494,7 @@ export default function DevPortal({ onBack }: { onBack: () => void }) {
               </div>
               <div className="dashboard-card dashboard-card--zero">
                 <p className="dashboard-value">0</p>
-                <p className="dashboard-label">Fucks given (all time)</p>
+                <p className="dashboard-label">Fucks given (all time, with or without key)</p>
               </div>
               <div className="dashboard-card">
                 <p className="dashboard-value">∞</p>
