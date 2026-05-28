@@ -359,20 +359,20 @@ body {
   bottom: 1.5rem;
   right: 296px;
   background: transparent;
-  border: 1px solid var(--line);
-  color: #1e1e1e;
+  border: 1px solid var(--dim);
+  color: var(--text);
   font-family: inherit;
-  font-size: 0.52rem;
+  font-size: 0.58rem;
   letter-spacing: 0.2em;
-  padding: 0.4rem 0.8rem;
+  padding: 0.45rem 0.9rem;
   cursor: pointer;
   z-index: 60;
   transition: border-color 0.2s, color 0.2s;
 }
 
 .api-docs-link:hover {
-  border-color: var(--dim);
-  color: var(--dim);
+  border-color: var(--text);
+  color: var(--mid);
 }
 
 /* ── DEV PORTAL ───────────────────────────────────────────────────────────── */
