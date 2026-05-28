@@ -6,11 +6,11 @@
 
 :root {
   --bg:     #080808;
-  --text:   #5a5a5a;
-  --mid:    #888;
-  --bright: #d0d0d0;
-  --dim:    #242424;
-  --line:   #131313;
+  --text:   #787878;
+  --mid:    #a0a0a0;
+  --bright: #e0e0e0;
+  --dim:    #3a3a3a;
+  --line:   #1a1a1a;
   --red:    #cc2200;
   --violet: #7c3aed;
   --indigo: #4f46e5;
@@ -40,7 +40,7 @@ body {
 }
 
 .site-id {
-  font-size: 0.65rem;
+  font-size: 0.72rem;
   color: var(--dim);
   letter-spacing: 0.5em;
   text-transform: uppercase;
@@ -53,7 +53,7 @@ body {
   position: absolute;
   top: 2rem;
   right: 2rem;
-  font-size: 0.58rem;
+  font-size: 0.65rem;
   color: var(--dim);
   letter-spacing: 0.18em;
   display: flex;
@@ -80,7 +80,7 @@ body {
 /* ── COUNTER ──────────────────────────────────────────────────────────────── */
 
 .counter-label {
-  font-size: 0.6rem;
+  font-size: 0.7rem;
   color: var(--dim);
   letter-spacing: 0.7em;
   text-transform: uppercase;
@@ -114,7 +114,7 @@ body {
 
 .status {
   margin-top: 1.75rem;
-  font-size: 0.75rem;
+  font-size: 0.8rem;
   color: var(--dim);
   letter-spacing: 0.2em;
   height: 1.1rem;
@@ -128,7 +128,7 @@ body {
 
 .global-stats {
   margin-top: 3.5rem;
-  font-size: 0.62rem;
+  font-size: 0.7rem;
   color: var(--dim);
   letter-spacing: 0.14em;
   display: flex;
@@ -148,7 +148,7 @@ body {
   bottom: 2.5rem;
   left: 50%;
   transform: translateX(-50%);
-  font-size: 0.58rem;
+  font-size: 0.65rem;
   color: var(--dim);
   letter-spacing: 0.35em;
   white-space: nowrap;
@@ -156,8 +156,8 @@ body {
 }
 
 @keyframes breathe {
-  0%, 100% { opacity: 0.15; }
-  50%       { opacity: 0.45; }
+  0%, 100% { opacity: 0.25; }
+  50%       { opacity: 0.6; }
 }
 
 /* ── FLEE BUTTON ──────────────────────────────────────────────────────────── */
@@ -168,9 +168,9 @@ body {
   border: 1px solid var(--dim);
   color: var(--text);
   font-family: inherit;
-  font-size: 0.7rem;
+  font-size: 0.78rem;
   letter-spacing: 0.25em;
-  padding: 0.7rem 1.5rem;
+  padding: 0.75rem 1.6rem;
   cursor: pointer;
   z-index: 99;
   user-select: none;
@@ -197,9 +197,10 @@ body {
 .void-line {
   padding: 1.25rem 0;
   border-top: 1px solid var(--line);
-  font-size: 0.72rem;
+  font-size: 0.78rem;
   color: var(--dim);
   letter-spacing: 0.1em;
+  line-height: 1.6;
   opacity: 0;
   transform: translateY(8px);
   animation: rise 0.55s forwards;
@@ -222,12 +223,12 @@ body {
 }
 
 .sigh-msg {
-  font-size: clamp(1rem, 3.5vw, 1.8rem);
+  font-size: clamp(1.1rem, 3.5vw, 2rem);
   color: var(--mid);
   letter-spacing: 0.06em;
   text-align: center;
   padding: 1rem 2rem;
-  max-width: 620px;
+  max-width: 680px;
   opacity: 0;
   transform: scale(0.94);
   transition: opacity 0.3s, transform 0.3s;
@@ -254,10 +255,11 @@ body {
 .achievement {
   background: #0f0f0f;
   border: 1px solid var(--dim);
-  padding: 0.6rem 1rem;
-  font-size: 0.62rem;
+  padding: 0.65rem 1.1rem;
+  font-size: 0.7rem;
   color: var(--text);
   letter-spacing: 0.1em;
+  line-height: 1.5;
   opacity: 0;
   transform: translateX(-16px);
   animation: slide-in 0.4s forwards, fade-out 0.5s 4.5s forwards;
@@ -293,8 +295,8 @@ body {
 }
 
 .feed-header {
-  font-size: 0.52rem;
-  color: #1e1e1e;
+  font-size: 0.6rem;
+  color: #3a3a3a;
   letter-spacing: 0.2em;
   padding: 0.75rem 1rem;
   border-bottom: 1px solid var(--line);
@@ -315,8 +317,8 @@ body {
 
 .feed-empty {
   padding: 1rem;
-  font-size: 0.52rem;
-  color: #1a1a1a;
+  font-size: 0.6rem;
+  color: #3a3a3a;
   letter-spacing: 0.1em;
   font-style: italic;
 }
@@ -334,23 +336,23 @@ body {
 
 .feed-time {
   display: block;
-  font-size: 0.48rem;
-  color: #1c1c1c;
+  font-size: 0.55rem;
+  color: #3a3a3a;
   letter-spacing: 0.08em;
   margin-bottom: 0.18rem;
   font-variant-numeric: tabular-nums;
 }
 
 .feed-msg {
-  font-size: 0.55rem;
-  color: #383838;
+  font-size: 0.62rem;
+  color: #505050;
   letter-spacing: 0.04em;
-  line-height: 1.45;
+  line-height: 1.5;
   display: block;
 }
 
-.feed-item--api .feed-time { color: #2a2a3e; }
-.feed-item--api .feed-msg  { color: #3a3a5c; }
+.feed-item--api .feed-time { color: #3a3a5e; }
+.feed-item--api .feed-msg  { color: #5a5a7c; }
 
 /* ── API DOCS LINK ────────────────────────────────────────────────────────── */
 
@@ -362,9 +364,9 @@ body {
   border: 1px solid var(--dim);
   color: var(--text);
   font-family: inherit;
-  font-size: 0.58rem;
+  font-size: 0.65rem;
   letter-spacing: 0.2em;
-  padding: 0.45rem 0.9rem;
+  padding: 0.5rem 1rem;
   cursor: pointer;
   z-index: 60;
   transition: border-color 0.2s, color 0.2s;
@@ -401,9 +403,9 @@ body {
   border: 1px solid var(--line);
   color: var(--dim);
   font-family: inherit;
-  font-size: 0.58rem;
+  font-size: 0.65rem;
   letter-spacing: 0.15em;
-  padding: 0.35rem 0.75rem;
+  padding: 0.4rem 0.85rem;
   cursor: pointer;
   white-space: nowrap;
   transition: border-color 0.15s, color 0.15s;
@@ -425,7 +427,7 @@ body {
 }
 
 .portal-brand-tag {
-  font-size: 0.55rem;
+  font-size: 0.62rem;
   color: var(--text);
   letter-spacing: 0.2em;
   text-transform: uppercase;
@@ -477,7 +479,7 @@ body {
 }
 
 .nav-section-label {
-  font-size: 0.48rem;
+  font-size: 0.55rem;
   color: var(--dim);
   letter-spacing: 0.3em;
   text-transform: uppercase;
@@ -486,11 +488,11 @@ body {
 
 .nav-link {
   display: block;
-  font-size: 0.58rem;
+  font-size: 0.65rem;
   color: var(--text);
   letter-spacing: 0.08em;
   text-decoration: none;
-  padding: 0.35rem 1.25rem;
+  padding: 0.4rem 1.25rem;
   transition: color 0.15s, background 0.15s;
   white-space: nowrap;
   overflow: hidden;
@@ -540,18 +542,18 @@ body {
 }
 
 .portal-text {
-  font-size: 0.68rem;
+  font-size: 0.75rem;
   color: var(--text);
   letter-spacing: 0.05em;
-  line-height: 1.8;
+  line-height: 1.85;
   margin-bottom: 0.9rem;
 }
 
 .portal-callout {
-  font-size: 0.63rem;
+  font-size: 0.7rem;
   letter-spacing: 0.06em;
-  line-height: 1.7;
-  padding: 0.75rem 1rem;
+  line-height: 1.75;
+  padding: 0.85rem 1.1rem;
   border-left: 2px solid;
   margin-top: 1rem;
 }
@@ -559,15 +561,15 @@ body {
 .portal-callout strong { color: var(--mid); }
 
 .portal-callout--warn {
-  border-color: #6b3a00;
+  border-color: #8b5a20;
   background: #0e0a05;
-  color: #5a4520;
+  color: #8a7540;
 }
 
 .portal-callout--info {
   border-color: var(--indigo);
   background: #08080f;
-  color: #3a3a6a;
+  color: #5a5a8a;
 }
 
 .portal-list {
@@ -579,10 +581,10 @@ body {
 }
 
 .portal-list li {
-  font-size: 0.65rem;
+  font-size: 0.72rem;
   color: var(--text);
   letter-spacing: 0.05em;
-  line-height: 1.7;
+  line-height: 1.75;
   padding-left: 1rem;
   border-left: 1px solid var(--line);
 }
@@ -647,10 +649,10 @@ body {
 }
 
 .endpoint-desc {
-  font-size: 0.65rem;
+  font-size: 0.72rem;
   color: var(--text);
   letter-spacing: 0.05em;
-  line-height: 1.75;
+  line-height: 1.8;
 }
 
 .endpoint-response-wrap {
@@ -691,10 +693,10 @@ body {
 
 .response-pre code {
   font-family: inherit;
-  font-size: 0.62rem;
-  color: #4a4a6a;
+  font-size: 0.68rem;
+  color: #6a6a8a;
   letter-spacing: 0.04em;
-  line-height: 1.6;
+  line-height: 1.65;
   white-space: pre;
 }
 
@@ -759,10 +761,10 @@ body {
 
 .code-pre code {
   font-family: inherit;
-  font-size: 0.63rem;
-  color: #4a5a4a;
+  font-size: 0.68rem;
+  color: #6a7a6a;
   letter-spacing: 0.04em;
-  line-height: 1.65;
+  line-height: 1.7;
   white-space: pre;
 }
 
@@ -771,7 +773,7 @@ body {
 .status-table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 0.62rem;
+  font-size: 0.7rem;
   letter-spacing: 0.05em;
   color: var(--text);
 }
@@ -834,10 +836,10 @@ body {
 }
 
 .dashboard-label {
-  font-size: 0.55rem;
+  font-size: 0.62rem;
   color: var(--dim);
   letter-spacing: 0.1em;
-  line-height: 1.5;
+  line-height: 1.55;
 }
 
 /* ── RESPONSIVE ───────────────────────────────────────────────────────────── */

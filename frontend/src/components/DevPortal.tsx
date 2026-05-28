@@ -148,7 +148,7 @@ function CodeBlock({ snippets }: { snippets: Snippet[] }) {
             {s.lang}
           </button>
         ))}
-        <button className="copy-btn" onClick={copy} aria-label="Code kopieren">
+        <button className="copy-btn" onClick={copy} aria-label="Copy code">
           {copied ? '✓ copied' : 'copy'}
         </button>
       </div>
@@ -197,7 +197,7 @@ function EndpointCard({ ep }: { ep: Endpoint }) {
 }
 
 function fmt(n: number) {
-  return n.toLocaleString('de-DE')
+  return n.toLocaleString('en-US')
 }
 
 // ── main portal ────────────────────────────────────────────────────────────
@@ -211,7 +211,7 @@ export default function DevPortal({ onBack }: { onBack: () => void }) {
       {/* top bar */}
       <header className="portal-topbar">
         <button className="portal-back" onClick={onBack}>
-          ← zurück zur sinnlosigkeit
+          ← back to pointlessness
         </button>
         <div className="portal-brand">
           <span className="portal-brand-name">FaaS</span>
