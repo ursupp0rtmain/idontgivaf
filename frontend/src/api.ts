@@ -14,8 +14,9 @@ export async function recordClick() {
 
 export interface Stats {
   attempts: number
-  clicks: number
+  clicks:   number
   visitors: number
+  apiCalls: number
 }
 
 export async function fetchStats(): Promise<Stats> {
