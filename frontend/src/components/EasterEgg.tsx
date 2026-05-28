@@ -3,22 +3,22 @@ import { playSigh } from '../audio'
 import { recordClick } from '../api'
 
 const SIGHS = [
-  '*seufz* ...',
-  'bitte. nicht.',
-  'oh nein. oh nein nein nein.',
-  'das war ein versehen. korrigiere.',
-  'kurz unachtsam gewesen. entschuldigung.',
+  '*sigh* ...',
+  'please. don\'t.',
+  'oh no. oh no no no.',
+  'that was an accident. correcting.',
+  'briefly careless. apologies.',
   'f*ck.dll: unexpected value 1',
-  'das hätte nicht passieren sollen.',
+  'that wasn\'t supposed to happen.',
 ]
 
 const REVERTS = [
-  '— uff, zu anstrengend.',
-  '— fehler behoben. danke für nichts.',
-  '— f*ck zurückgezogen. wie immer.',
-  '— war nichts. wie alles hier.',
-  '— zähler korrigiert. bitte geh jetzt.',
-  '— ausgabe storniert. rückerstattung: 0 f*cks.',
+  '— ugh, too exhausting.',
+  '— bug fixed. thanks for nothing.',
+  '— f*ck retracted. as always.',
+  '— that was nothing. like everything here.',
+  '— counter corrected. please leave now.',
+  '— transaction canceled. refund: 0 f*cks.',
 ]
 
 const pick = (arr: string[]) => arr[Math.floor(Math.random() * arr.length)]
@@ -84,7 +84,7 @@ export default function EasterEgg({ active, onDone }: Props) {
 
   return (
     <>
-      {/* Counter wird hier gerendert damit EasterEgg ihn steuern kann */}
+      {/* counter rendered here so EasterEgg can control it */}
       <div className={`counter${counterLit ? ' lit' : ''}${counterShake ? ' shake' : ''}`}>
         {counter}
       </div>
