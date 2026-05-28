@@ -52,7 +52,7 @@ body {
 .live-badge {
   position: absolute;
   top: 2rem;
-  right: 2rem;
+  right: 296px;
   font-size: 0.65rem;
   color: var(--dim);
   letter-spacing: 0.18em;
@@ -846,6 +846,7 @@ body {
 
 @media (max-width: 900px) {
   .live-feed      { display: none; }
+  .live-badge     { right: 2rem; }
   .api-docs-link  { right: 1.5rem; }
 }
 
