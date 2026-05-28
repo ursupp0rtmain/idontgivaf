@@ -4,13 +4,15 @@ import FleeingButton from './components/FleeingButton'
 import EasterEgg     from './components/EasterEgg'
 import VoidScroll    from './components/VoidScroll'
 import Achievements  from './components/Achievements'
+import LiveFeed      from './components/LiveFeed'
+import DevPortal     from './components/DevPortal'
 
 function fmt(n: number) {
   return n.toLocaleString('de-DE')
 }
 
 function Hero({ onEasterEgg, eggActive }: { onEasterEgg: () => void; eggActive: boolean }) {
-  const { attempts, clicks, visitors, sessionAttempts } = useStats()
+  const { attempts, clicks, visitors, sessionAttempts, apiCalls } = useStats()
 
   return (
     <section className="hero">
@@ -23,7 +25,6 @@ function Hero({ onEasterEgg, eggActive }: { onEasterEgg: () => void; eggActive: 
 
       <p className="counter-label">gegebene f*cks</p>
 
-      {/* Counter + Status werden von EasterEgg gesteuert */}
       <EasterEgg active={eggActive} onDone={onEasterEgg} />
 
       <div className="global-stats">
@@ -38,6 +39,10 @@ function Hero({ onEasterEgg, eggActive }: { onEasterEgg: () => void; eggActive: 
         <span>
           <span className="stat-value">{fmt(sessionAttempts)}</span> deine versuche
         </span>
+        <span>·</span>
+        <span>
+          <span className="stat-value">{fmt(apiCalls)}</span> api-ignorierungen
+        </span>
       </div>
 
       <p className="scroll-hint">↓ &nbsp; hier unten ist auch nichts &nbsp; ↓</p>
@@ -45,17 +50,13 @@ function Hero({ onEasterEgg, eggActive }: { onEasterEgg: () => void; eggActive: 
   )
 }
 
-function Inner() {
+function Main({ onOpenPortal }: { onOpenPortal: () => void }) {
   const [eggActive, setEggActive] = useState(false)
 
   const startEgg = useCallback(() => {
     if (!eggActive) setEggActive(true)
   }, [eggActive])
 
-  // EasterEgg ruft onDone wenn fertig — hier togglen wir zurück
-  // Trick: wir übergeben startEgg als onDone weil EasterEgg nach fertig sein
-  // onDone() aufruft — wir brauchen aber ein "done" Signal.
-  // Deshalb: separater Callback.
   const endEgg = useCallback(() => {
     setEggActive(false)
   }, [])
@@ -66,14 +67,23 @@ function Inner() {
       <VoidScroll />
       <FleeingButton onEasterEgg={startEgg} disabled={eggActive} />
       <Achievements />
+      <LiveFeed />
+      <button className="api-docs-link" onClick={onOpenPortal} aria-label="API Dokumentation öffnen">
+        api docs →
+      </button>
     </>
   )
 }
 
 export default function App() {
+  const [page, setPage] = useState<'main' | 'portal'>('main')
+
   return (
     <StatsProvider>
-      <Inner />
+      {page === 'portal'
+        ? <DevPortal onBack={() => setPage('main')} />
+        : <Main onOpenPortal={() => setPage('portal')} />
+      }
     </StatsProvider>
   )
 }
