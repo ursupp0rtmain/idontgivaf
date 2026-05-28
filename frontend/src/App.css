@@ -6,11 +6,11 @@
 
 :root {
   --bg:     #080808;
-  --text:   #5a5a5a;
-  --mid:    #888;
-  --bright: #d0d0d0;
-  --dim:    #242424;
-  --line:   #131313;
+  --text:   #bbbbbb;
+  --mid:    #d2d2d2;
+  --bright: #f2f2f2;
+  --dim:    #8a8a8a;
+  --line:   #2a2a2a;
   --red:    #cc2200;
   --violet: #7c3aed;
   --indigo: #4f46e5;
@@ -22,6 +22,8 @@ body {
   background: var(--bg);
   color: var(--text);
   font-family: 'Courier New', Courier, monospace;
+  font-size: 16px;
+  line-height: 1.5;
   min-height: 100vh;
   overflow-x: hidden;
 }
@@ -40,9 +42,9 @@ body {
 }
 
 .site-id {
-  font-size: 0.65rem;
+  font-size: 0.72rem;
   color: var(--dim);
-  letter-spacing: 0.5em;
+  letter-spacing: 0.35em;
   text-transform: uppercase;
   margin-bottom: 3.5rem;
 }
@@ -53,9 +55,9 @@ body {
   position: absolute;
   top: 2rem;
   right: 2rem;
-  font-size: 0.58rem;
-  color: var(--dim);
-  letter-spacing: 0.18em;
+  font-size: 0.68rem;
+  color: var(--text);
+  letter-spacing: 0.08em;
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -80,9 +82,9 @@ body {
 /* ── COUNTER ──────────────────────────────────────────────────────────────── */
 
 .counter-label {
-  font-size: 0.6rem;
-  color: var(--dim);
-  letter-spacing: 0.7em;
+  font-size: 0.72rem;
+  color: var(--text);
+  letter-spacing: 0.35em;
   text-transform: uppercase;
   margin-bottom: 0.75rem;
 }
@@ -114,9 +116,9 @@ body {
 
 .status {
   margin-top: 1.75rem;
-  font-size: 0.75rem;
-  color: var(--dim);
-  letter-spacing: 0.2em;
+  font-size: 0.86rem;
+  color: var(--text);
+  letter-spacing: 0.08em;
   height: 1.1rem;
   opacity: 0;
   transition: opacity 0.4s;
@@ -128,14 +130,14 @@ body {
 
 .global-stats {
   margin-top: 3.5rem;
-  font-size: 0.62rem;
-  color: var(--dim);
-  letter-spacing: 0.14em;
+  font-size: 0.74rem;
+  color: var(--text);
+  letter-spacing: 0.05em;
   display: flex;
   gap: 1.25rem;
   flex-wrap: wrap;
   justify-content: center;
-  line-height: 1.8;
+  line-height: 1.9;
 }
 
 .stat-value {
@@ -148,9 +150,9 @@ body {
   bottom: 2.5rem;
   left: 50%;
   transform: translateX(-50%);
-  font-size: 0.58rem;
-  color: var(--dim);
-  letter-spacing: 0.35em;
+  font-size: 0.66rem;
+  color: var(--text);
+  letter-spacing: 0.14em;
   white-space: nowrap;
   animation: breathe 5s ease-in-out infinite;
 }
@@ -168,8 +170,8 @@ body {
   border: 1px solid var(--dim);
   color: var(--text);
   font-family: inherit;
-  font-size: 0.7rem;
-  letter-spacing: 0.25em;
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
   padding: 0.7rem 1.5rem;
   cursor: pointer;
   z-index: 99;
@@ -197,9 +199,10 @@ body {
 .void-line {
   padding: 1.25rem 0;
   border-top: 1px solid var(--line);
-  font-size: 0.72rem;
-  color: var(--dim);
-  letter-spacing: 0.1em;
+  font-size: 0.92rem;
+  color: var(--text);
+  letter-spacing: 0.01em;
+  line-height: 1.7;
   opacity: 0;
   transform: translateY(8px);
   animation: rise 0.55s forwards;
@@ -223,8 +226,8 @@ body {
 
 .sigh-msg {
   font-size: clamp(1rem, 3.5vw, 1.8rem);
-  color: var(--mid);
-  letter-spacing: 0.06em;
+  color: var(--bright);
+  letter-spacing: 0.03em;
   text-align: center;
   padding: 1rem 2rem;
   max-width: 620px;
@@ -255,9 +258,9 @@ body {
   background: #0f0f0f;
   border: 1px solid var(--dim);
   padding: 0.6rem 1rem;
-  font-size: 0.62rem;
-  color: var(--text);
-  letter-spacing: 0.1em;
+  font-size: 0.75rem;
+  color: var(--bright);
+  letter-spacing: 0.03em;
   opacity: 0;
   transform: translateX(-16px);
   animation: slide-in 0.4s forwards, fade-out 0.5s 4.5s forwards;
@@ -283,7 +286,7 @@ body {
   right: 0;
   top: 0;
   bottom: 0;
-  width: 280px;
+  width: 320px;
   background: #040404;
   border-left: 1px solid var(--line);
   display: flex;
@@ -293,9 +296,9 @@ body {
 }
 
 .feed-header {
-  font-size: 0.52rem;
-  color: #1e1e1e;
-  letter-spacing: 0.2em;
+  font-size: 0.62rem;
+  color: var(--dim);
+  letter-spacing: 0.12em;
   padding: 0.75rem 1rem;
   border-bottom: 1px solid var(--line);
   flex-shrink: 0;
@@ -315,9 +318,9 @@ body {
 
 .feed-empty {
   padding: 1rem;
-  font-size: 0.52rem;
-  color: #1a1a1a;
-  letter-spacing: 0.1em;
+  font-size: 0.7rem;
+  color: var(--dim);
+  letter-spacing: 0.03em;
   font-style: italic;
 }
 
@@ -334,23 +337,23 @@ body {
 
 .feed-time {
   display: block;
-  font-size: 0.48rem;
-  color: #1c1c1c;
-  letter-spacing: 0.08em;
+  font-size: 0.6rem;
+  color: var(--dim);
+  letter-spacing: 0.04em;
   margin-bottom: 0.18rem;
   font-variant-numeric: tabular-nums;
 }
 
 .feed-msg {
-  font-size: 0.55rem;
-  color: #383838;
-  letter-spacing: 0.04em;
-  line-height: 1.45;
+  font-size: 0.74rem;
+  color: var(--text);
+  letter-spacing: 0.01em;
+  line-height: 1.6;
   display: block;
 }
 
 .feed-item--api .feed-time { color: #2a2a3e; }
-.feed-item--api .feed-msg  { color: #3a3a5c; }
+.feed-item--api .feed-msg  { color: #9a9acc; }
 
 /* ── API DOCS LINK ────────────────────────────────────────────────────────── */
 
@@ -362,8 +365,8 @@ body {
   border: 1px solid var(--dim);
   color: var(--text);
   font-family: inherit;
-  font-size: 0.58rem;
-  letter-spacing: 0.2em;
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
   padding: 0.45rem 0.9rem;
   cursor: pointer;
   z-index: 60;
@@ -401,8 +404,8 @@ body {
   border: 1px solid var(--line);
   color: var(--dim);
   font-family: inherit;
-  font-size: 0.58rem;
-  letter-spacing: 0.15em;
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
   padding: 0.35rem 0.75rem;
   cursor: pointer;
   white-space: nowrap;
@@ -448,7 +451,7 @@ body {
 
 .baseurl-code {
   font-family: inherit;
-  font-size: 0.6rem;
+  font-size: 0.68rem;
   color: var(--text);
   letter-spacing: 0.05em;
 }
@@ -486,9 +489,9 @@ body {
 
 .nav-link {
   display: block;
-  font-size: 0.58rem;
+  font-size: 0.68rem;
   color: var(--text);
-  letter-spacing: 0.08em;
+  letter-spacing: 0.04em;
   text-decoration: none;
   padding: 0.35rem 1.25rem;
   transition: color 0.15s, background 0.15s;
@@ -522,7 +525,7 @@ body {
 }
 
 .portal-section-title {
-  font-size: 0.9rem;
+  font-size: 1rem;
   font-weight: 700;
   color: var(--bright);
   letter-spacing: 0.05em;
@@ -540,16 +543,16 @@ body {
 }
 
 .portal-text {
-  font-size: 0.68rem;
+  font-size: 0.8rem;
   color: var(--text);
-  letter-spacing: 0.05em;
+  letter-spacing: 0.02em;
   line-height: 1.8;
   margin-bottom: 0.9rem;
 }
 
 .portal-callout {
-  font-size: 0.63rem;
-  letter-spacing: 0.06em;
+  font-size: 0.74rem;
+  letter-spacing: 0.02em;
   line-height: 1.7;
   padding: 0.75rem 1rem;
   border-left: 2px solid;
@@ -579,9 +582,9 @@ body {
 }
 
 .portal-list li {
-  font-size: 0.65rem;
+  font-size: 0.76rem;
   color: var(--text);
-  letter-spacing: 0.05em;
+  letter-spacing: 0.02em;
   line-height: 1.7;
   padding-left: 1rem;
   border-left: 1px solid var(--line);
@@ -614,7 +617,7 @@ body {
 .endpoint-path {
   flex: 1;
   font-family: inherit;
-  font-size: 0.72rem;
+  font-size: 0.8rem;
   color: var(--mid);
   letter-spacing: 0.06em;
 }
@@ -647,9 +650,9 @@ body {
 }
 
 .endpoint-desc {
-  font-size: 0.65rem;
+  font-size: 0.76rem;
   color: var(--text);
-  letter-spacing: 0.05em;
+  letter-spacing: 0.02em;
   line-height: 1.75;
 }
 
@@ -691,9 +694,9 @@ body {
 
 .response-pre code {
   font-family: inherit;
-  font-size: 0.62rem;
-  color: #4a4a6a;
-  letter-spacing: 0.04em;
+  font-size: 0.7rem;
+  color: #b7b7de;
+  letter-spacing: 0.02em;
   line-height: 1.6;
   white-space: pre;
 }
@@ -724,8 +727,8 @@ body {
   border-right: 1px solid var(--line);
   color: var(--dim);
   font-family: inherit;
-  font-size: 0.55rem;
-  letter-spacing: 0.15em;
+  font-size: 0.64rem;
+  letter-spacing: 0.08em;
   padding: 0.45rem 0.85rem;
   cursor: pointer;
   transition: color 0.15s, background 0.15s;
@@ -741,8 +744,8 @@ body {
   border-left: 1px solid var(--line);
   color: var(--dim);
   font-family: inherit;
-  font-size: 0.52rem;
-  letter-spacing: 0.2em;
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
   padding: 0.45rem 0.85rem;
   cursor: pointer;
   transition: color 0.15s;
@@ -759,9 +762,9 @@ body {
 
 .code-pre code {
   font-family: inherit;
-  font-size: 0.63rem;
-  color: #4a5a4a;
-  letter-spacing: 0.04em;
+  font-size: 0.72rem;
+  color: #a7c5a7;
+  letter-spacing: 0.02em;
   line-height: 1.65;
   white-space: pre;
 }
@@ -771,8 +774,8 @@ body {
 .status-table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 0.62rem;
-  letter-spacing: 0.05em;
+  font-size: 0.72rem;
+  letter-spacing: 0.02em;
   color: var(--text);
 }
 
@@ -834,9 +837,9 @@ body {
 }
 
 .dashboard-label {
-  font-size: 0.55rem;
+  font-size: 0.66rem;
   color: var(--dim);
-  letter-spacing: 0.1em;
+  letter-spacing: 0.04em;
   line-height: 1.5;
 }
 
@@ -844,7 +847,7 @@ body {
 
 @media (max-width: 900px) {
   .live-feed      { display: none; }
-  .api-docs-link  { right: 1.5rem; }
+  .api-docs-link  { right: 1.5rem; bottom: 1rem; }
 }
 
 @media (max-width: 700px) {

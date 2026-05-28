@@ -8,7 +8,7 @@ import LiveFeed      from './components/LiveFeed'
 import DevPortal     from './components/DevPortal'
 
 function fmt(n: number) {
-  return n.toLocaleString('de-DE')
+  return n.toLocaleString('en-US')
 }
 
 function Hero({ onEasterEgg, eggActive }: { onEasterEgg: () => void; eggActive: boolean }) {
@@ -20,32 +20,32 @@ function Hero({ onEasterEgg, eggActive }: { onEasterEgg: () => void; eggActive: 
 
       <div className="live-badge">
         <span className={`live-dot${visitors > 0 ? ' active' : ''}`} />
-        <span>{fmt(visitors)} {visitors === 1 ? 'seele' : 'seelen'} verlieren gerade ihre zeit</span>
+        <span>{fmt(visitors)} {visitors === 1 ? 'person' : 'people'} currently wasting time</span>
       </div>
 
-      <p className="counter-label">gegebene f*cks</p>
+      <p className="counter-label">f*cks given</p>
 
       <EasterEgg active={eggActive} onDone={onEasterEgg} />
 
       <div className="global-stats">
         <span>
-          <span className="stat-value">{fmt(attempts)}</span> globale versuche
+          <span className="stat-value">{fmt(attempts)}</span> global attempts
         </span>
         <span>·</span>
         <span>
-          <span className="stat-value">{fmt(clicks)}</span> beschämende erfolge
+          <span className="stat-value">{fmt(clicks)}</span> embarrassing wins
         </span>
         <span>·</span>
         <span>
-          <span className="stat-value">{fmt(sessionAttempts)}</span> deine versuche
+          <span className="stat-value">{fmt(sessionAttempts)}</span> your attempts
         </span>
         <span>·</span>
         <span>
-          <span className="stat-value">{fmt(apiCalls)}</span> api-ignorierungen
+          <span className="stat-value">{fmt(apiCalls)}</span> API rejections
         </span>
       </div>
 
-      <p className="scroll-hint">↓ &nbsp; hier unten ist auch nichts &nbsp; ↓</p>
+      <p className="scroll-hint">↓ &nbsp; nothing down here either &nbsp; ↓</p>
     </section>
   )
 }
@@ -68,8 +68,8 @@ function Main({ onOpenPortal }: { onOpenPortal: () => void }) {
       <FleeingButton onEasterEgg={startEgg} disabled={eggActive} />
       <Achievements />
       <LiveFeed />
-      <button className="api-docs-link" onClick={onOpenPortal} aria-label="API Dokumentation öffnen">
-        api docs →
+      <button className="api-docs-link" onClick={onOpenPortal} aria-label="Open API documentation">
+        API docs →
       </button>
     </>
   )
