@@ -25,12 +25,12 @@ export default function FleeingButton({ onEasterEgg, disabled }: Props) {
     recordAttempt() // throttled intern
   }, [onSessionAttempt])
 
-  // Platzierung beim ersten Render
+  // Place the button on the first render.
   useEffect(() => {
     flee()
   }, [flee])
 
-  // Mausnähe-Detektion
+  // Move away when the pointer gets too close.
   useEffect(() => {
     const onMove = (e: MouseEvent) => {
       if (cooling.current || disabled) return
@@ -75,9 +75,9 @@ export default function FleeingButton({ onEasterEgg, disabled }: Props) {
       ref={btnRef}
       className="flee-btn"
       onClick={disabled ? undefined : onEasterEgg}
-      aria-label="Einen F*ck geben"
+      aria-label="Give a f*ck"
     >
-      einen f*ck geben
+      give a f*ck
     </button>
   )
 }
