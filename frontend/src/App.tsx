@@ -68,6 +68,15 @@ function Main({ onOpenPortal }: { onOpenPortal: () => void }) {
       <FleeingButton onEasterEgg={startEgg} disabled={eggActive} />
       <Achievements />
       <LiveFeed />
+      <a
+        className="github-link"
+        href="https://github.com/ursupp0rtmain"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="GitHub"
+      >
+        github →
+      </a>
       <button className="api-docs-link" onClick={onOpenPortal} aria-label="Open API documentation">
         api docs →
       </button>

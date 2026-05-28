@@ -354,6 +354,30 @@ body {
 .feed-item--api .feed-time { color: #3a3a5e; }
 .feed-item--api .feed-msg  { color: #5a5a7c; }
 
+/* ── GITHUB LINK ─────────────────────────────────────────────────────────── */
+
+.github-link {
+  position: fixed;
+  bottom: 1.5rem;
+  left: 2rem;
+  background: transparent;
+  border: 1px solid var(--dim);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  z-index: 60;
+  text-decoration: none;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.github-link:hover {
+  border-color: var(--text);
+  color: var(--mid);
+}
+
 /* ── API DOCS LINK ────────────────────────────────────────────────────────── */
 
 .api-docs-link {
