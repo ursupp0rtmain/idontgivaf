@@ -44,6 +44,15 @@ body {
   color: var(--dim);
   letter-spacing: 0.5em;
   text-transform: uppercase;
+  margin-bottom: 1.25rem;
+}
+
+.hero-tagline {
+  font-size: clamp(0.85rem, 2.8vw, 1.15rem);
+  color: var(--mid);
+  letter-spacing: 0.12em;
+  line-height: 1.6;
+  max-width: 28rem;
   margin-bottom: 3.5rem;
 }
 
@@ -354,7 +363,30 @@ body {
 .feed-item--api .feed-time { color: #3a3a5e; }
 .feed-item--api .feed-msg  { color: #5a5a7c; }
 
-/* ── GITHUB LINK ─────────────────────────────────────────────────────────── */
+/* ── BOTTOM LINKS ─────────────────────────────────────────────────────────── */
+
+.igiveafuck-link {
+  position: fixed;
+  bottom: 4.25rem;
+  left: 2rem;
+  background: transparent;
+  border: 1px solid #3a5a3a;
+  color: #6a9a6a;
+  font-family: inherit;
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  z-index: 60;
+  text-decoration: none;
+  transition: border-color 0.2s, color 0.2s, box-shadow 0.2s;
+}
+
+.igiveafuck-link:hover {
+  border-color: #5a9a5a;
+  color: #8aba8a;
+  box-shadow: 0 0 20px rgba(58, 138, 58, 0.12);
+}
 
 .github-link {
   position: fixed;

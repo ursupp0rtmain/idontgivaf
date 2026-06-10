@@ -17,6 +17,7 @@ function Hero({ onEasterEgg, eggActive }: { onEasterEgg: () => void; eggActive: 
   return (
     <section className="hero">
       <p className="site-id">idontgivaf.uk</p>
+      <p className="hero-tagline">idontgiveafuck how good my code is</p>
 
       <div className="live-badge">
         <span className={`live-dot${visitors > 0 ? ' active' : ''}`} />
@@ -68,6 +69,16 @@ function Main({ onOpenPortal }: { onOpenPortal: () => void }) {
       <FleeingButton onEasterEgg={startEgg} disabled={eggActive} />
       <Achievements />
       <LiveFeed />
+      <a
+        className="igiveafuck-link"
+        href="https://github.com/ursupp0rtmain/igivafuk"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Guided agent setup for people who actually give a fuck"
+        title="guided agent setup — for when your ai slop needs guardrails"
+      >
+        igiveafuck →
+      </a>
       <a
         className="github-link"
         href="https://github.com/ursupp0rtmain"
