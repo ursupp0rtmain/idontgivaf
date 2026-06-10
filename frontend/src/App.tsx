@@ -70,7 +70,7 @@ function Main({ onOpenPortal }: { onOpenPortal: () => void }) {
       <Achievements />
       <LiveFeed />
       <a
-        className="igiveafuck-link"
+        className="igivafuck-link"
         href="https://github.com/ursupp0rtmain/igivafuk"
         target="_blank"
         rel="noopener noreferrer"
