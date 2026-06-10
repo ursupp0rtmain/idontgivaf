@@ -71,7 +71,7 @@ function Main({ onOpenPortal }: { onOpenPortal: () => void }) {
       <LiveFeed />
       <a
         className="igiveafuck-link"
-        href="https://github.com/ursupp0rtmain/igiveafuck"
+        href="https://github.com/ursupp0rtmain/igivafuk"
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Guided agent setup for people who actually give a fuck"
