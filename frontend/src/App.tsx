@@ -6,6 +6,7 @@ import VoidScroll    from './components/VoidScroll'
 import Achievements  from './components/Achievements'
 import LiveFeed      from './components/LiveFeed'
 import DevPortal     from './components/DevPortal'
+import IgivafukInstall from './components/IgivafukInstall'
 
 function fmt(n: number) {
   return n.toLocaleString('en-US')
@@ -69,16 +70,7 @@ function Main({ onOpenPortal }: { onOpenPortal: () => void }) {
       <FleeingButton onEasterEgg={startEgg} disabled={eggActive} />
       <Achievements />
       <LiveFeed />
-      <a
-        className="igivafuck-link"
-        href="https://github.com/ursupp0rtmain/igivafuk"
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="Guided agent setup for people who actually give a fuck"
-        title="guided agent setup — for when your ai slop needs guardrails"
-      >
-        igiveafuck →
-      </a>
+      <IgivafukInstall />
       <a
         className="github-link"
         href="https://github.com/ursupp0rtmain"
